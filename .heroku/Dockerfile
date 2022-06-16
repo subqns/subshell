@@ -6,6 +6,8 @@ RUN apk add nodejs npm yarn jq vim bash
 
 RUN npm install -g subgenius
 
-ENTRYPOINT ["sh", "-c"]
+RUN ADD subsh /bin/
+
+ENTRYPOINT ["subsh"]
 
 CMD ["/usr/bin/k0s hub --port :$PORT"]
