@@ -2,7 +2,7 @@
 
 FROM btwiuse/k0s
 
-RUN apk add nodejs npm yarn jq vim bash tmux htop
+RUN apk add nodejs-current npm yarn jq vim bash tmux htop
 
 RUN npm install -g subsh
 
