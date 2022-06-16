@@ -6,9 +6,9 @@ RUN apk add nodejs npm yarn jq vim bash
 
 RUN npm install -g subgenius
 
-RUN ADD subsh /bin/
+RUN echo subsh > /.bashrc
 
-RUN "echo subsh > /.bashrc"
+ADD subsh /bin/
 
 ENTRYPOINT ["bash", "-c"]
 
