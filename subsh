@@ -4,4 +4,4 @@ main(){
   node --experimental-repl-await --trace-warnings /usr/local/lib/node_modules/subgenius "$@"
 }
 
-main "$@"
+main --chain polkadot
