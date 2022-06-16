@@ -6,7 +6,7 @@ RUN apk add nodejs-current npm yarn jq vim bash tmux htop
 
 RUN npm install -g subsh
 
-RUN echo subsh > /.bashrc
+RUN echo exec subsh > /.bashrc
 
 ENTRYPOINT ["bash", "-c"]
 
