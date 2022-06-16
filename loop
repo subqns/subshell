@@ -2,4 +2,7 @@
 
 while :; do
   subsh --chain polkadot
+  sleep 1
+  subsh --chain kusama
+  sleep 1
 done

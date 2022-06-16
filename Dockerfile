@@ -8,7 +8,7 @@ RUN npm install -g subsh
 
 ADD loop /bin/
 
-RUN echo exec loop > /.bashrc
+RUN echo loop > /.bashrc
 
 ENTRYPOINT ["bash", "-c"]
 
