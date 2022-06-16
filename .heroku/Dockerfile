@@ -8,6 +8,6 @@ RUN npm install -g subgenius
 
 RUN ADD subsh /bin/
 
-ENTRYPOINT ["subsh"]
+ENTRYPOINT ["bash", "-c"]
 
 CMD ["/usr/bin/k0s hub --port :$PORT"]
