@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+main(){
+  node --experimental-repl-await --trace-warnings /usr/local/lib/node_modules/subsh "$@"
+}
+
+main --chain polkadot

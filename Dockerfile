@@ -4,11 +4,11 @@ FROM btwiuse/k0s
 
 RUN apk add nodejs npm yarn jq vim bash tmux htop
 
-RUN npm install -g subgenius
+RUN npm install -g subsh
 
-RUN echo subsh > /.bashrc
+RUN echo subsh_alpine > /.bashrc
 
-ADD subsh /bin/
+ADD subsh_alpine /bin/
 
 ENTRYPOINT ["bash", "-c"]
 
