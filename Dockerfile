@@ -6,13 +6,11 @@ FROM btwiuse/k0s
 
 COPY --from=deno /bin/deno /bin/
 
-RUN apk add nodejs-current npm yarn jq vim bash tmux htop
+RUN apk add nodejs-current npm yarn jq vim bash tmux htop neofetch
 
 RUN npm install -g subsh
 
 ADD loop /bin/
-
-RUN echo loop > /.bashrc
 
 ENTRYPOINT ["bash", "-c"]
 
