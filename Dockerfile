@@ -20,6 +20,7 @@ ADD subsh-deno /bin/
 
 COPY import_map.json .
 COPY lock.json .
+COPY cache.ts .
 COPY init.ts .
 
 RUN subsh-deno cache
