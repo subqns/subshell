@@ -23,6 +23,8 @@ COPY lock.json .
 COPY cache.ts .
 COPY init.ts .
 
+ENV DENO_DIR=/cache
+
 RUN subsh-deno cache
 
 ENTRYPOINT ["bash", "-c"]
