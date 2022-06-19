@@ -13,7 +13,7 @@ COPY --from=deno /usr/bin/deno /bin
 
 RUN npm install -g subsh
 
-RUN apt install -y jq vim bash tmux htop neofetch
+RUN apt install -y jq vim bash tmux htop neofetch figlet sudo
 
 ADD subsh-loop /bin/
 ADD subsh-deno /bin/

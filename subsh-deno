@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 deno(){
-  subshell "$@"
-# /usr/bin/deno "$@"
+# subshell "$@"
+  /bin/deno "$@"
 }
 
 # deno --version
