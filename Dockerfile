@@ -18,6 +18,8 @@ RUN apt install -y jq vim bash tmux htop neofetch
 ADD subsh-loop /bin/
 ADD subsh-deno /bin/
 
+COPY subshell /bin
+
 COPY import_map.json .
 COPY lock.json .
 COPY cache.ts .

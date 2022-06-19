@@ -1,10 +1,20 @@
 #!/usr/bin/env bash
 
+deno(){
+  subshell "$@"
+# /usr/bin/deno "$@"
+}
+
+# deno --version
+
 if [[ "$1" == cache ]]; then
   until deno cache --unstable cache.ts --import-map=import_map.json --lock=lock.json; do sleep 1; done
   deno run --unstable --import-map=import_map.json --lock=lock.json cache.ts
+  # patch
+  grep -r "$DENO_DIR" -e 'function warn(pre, all, fmt) {' | cut -d : -f 1 | xargs sed -i -e 's/^function warn(pre, all, fmt) {$/function warn(pre, all, fmt) { return;/g'
+
 elif [[ "$1" == lock ]]; then
   deno repl --unstable --eval-file=init.ts --import-map=import_map.json --no-check --lock=lock.json --lock-write # --compat
 else
-  deno repl --unstable --eval-file=init.ts --import-map=import_map.json --no-check --lock=lock.json # --compat # --lock-write 
+  deno repl --unstable --eval-file=init.ts --import-map=import_map.json --no-check # --lock=lock.json # --compat # --lock-write
 fi
