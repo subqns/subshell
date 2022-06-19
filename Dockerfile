@@ -1,11 +1,22 @@
-FROM btwiuse/k0s
+FROM btwiuse/k0s AS k0s
 
-RUN apk add nodejs-current npm yarn jq vim bash tmux htop neofetch
+FROM denoland/deno:debian AS deno
+
+FROM node
+
+RUN apt update
+
+COPY --from=k0s /usr/bin/k0s /bin/hub
+COPY --from=deno /usr/bin/deno /bin
+
+# RUN apk add nodejs-current npm yarn jq vim bash tmux htop neofetch
 
 RUN npm install -g subsh
+
+RUN apt install -y jq vim bash tmux htop neofetch
 
 ADD subsh-loop /bin/
 
 ENTRYPOINT ["bash", "-c"]
 
-CMD ["/usr/bin/k0s hub --port :$PORT"]
+CMD ["hub --port :$PORT"]
