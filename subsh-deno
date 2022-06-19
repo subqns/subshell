@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+deno repl --unstable --eval-file=init.ts --import-map=import_map.json --no-check --lock=lock.json --compat --lock-write 

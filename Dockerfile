@@ -16,6 +16,11 @@ RUN npm install -g subsh
 RUN apt install -y jq vim bash tmux htop neofetch
 
 ADD subsh-loop /bin/
+ADD subsh-deno /bin/
+
+COPY import_map.json .
+COPY lock.json .
+COPY init.ts .
 
 ENTRYPOINT ["bash", "-c"]
 
