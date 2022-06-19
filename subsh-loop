@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+subsh_env_type(){
+  local json="$(mktemp -du)"
+
+  if [[ -n "$TYPES" ]]; then
+    jq <<< "$TYPES" > "$json"
+  fi
+
+  if [[ -f "$json" ]]; then
+    subsh --types "$json" "$@"
+  else
+    subsh "$@"
+  fi
+}
+
+subsh_env_provider_type(){
+  if [[ -n "$PROVIDER" ]]; then
+    subsh_env_type --provider "$PROVIDER" "$@"
+  else
+    subsh_env_type "$@"
+  fi
+}
+
+while :; do
+  subsh_env_provider_type "$@"
+done
