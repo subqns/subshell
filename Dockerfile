@@ -22,6 +22,8 @@ COPY import_map.json .
 COPY lock.json .
 COPY init.ts .
 
+RUN subsh-deno cache
+
 ENTRYPOINT ["bash", "-c"]
 
 CMD ["hub --port :$PORT"]

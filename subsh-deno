@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
 
-deno repl --unstable --eval-file=init.ts --import-map=import_map.json --no-check --lock=lock.json --compat --lock-write 
+if [[ "$1" == cache ]]; then
+  until deno cache init.ts --import-map=import_map.json; do :; done
+elif [[ "$1" == lock ]]; then
+  deno repl --unstable --eval-file=init.ts --import-map=import_map.json --no-check --lock=lock.json --compat --lock-write 
+else
+  deno repl --unstable --eval-file=init.ts --import-map=import_map.json --no-check --lock=lock.json --compat # --lock-write 
+fi
