@@ -1,4 +1,4 @@
-#!/usr/bin/env -S subsh
+#!/usr/bin/env -S deno run -A --import-map=./import_map.json --no-check --unstable --compat
 
 import {
   prodChains,
@@ -7,7 +7,9 @@ import {
   testChains,
   testRelayRococo,
   testRelayWestend,
-} from "./ep.yaml";
+} from "@polkadot/apps-config/endpoints";
+import fs from "fs";
+import YAML from 'yaml';
 
 interface chain {
   id: string;
@@ -24,13 +26,15 @@ interface chain {
 
 var chains: chain[] = [];
 
-function printPara(groupName, group, suffix) {
+function printPara(groupName, group, suffix): string {
+  let lines = [];
+
   let id = `${group.info}-${suffix}`;
   let filename = `${id}.md`;
   let name = group.text;
 
-  console.log(`# ${groupName}`.toUpperCase());
-  console.log(`- [${groupName}](${filename})`);
+  lines.push(`# ${groupName}`.toUpperCase());
+  lines.push(`- [${groupName}](${filename})`);
 
   chains.push({
     id,
@@ -56,7 +60,7 @@ function printPara(groupName, group, suffix) {
     let filename = `${id}.md`;
     let name = child.text;
     if (child.isUnreachable) continue;
-    console.log(`  - [${name}](${filename})`);
+    lines.push(`  - [${name}](${filename})`);
     Object.entries(child.providers).forEach(([provider, wss], n) => {
       //console.log(`    - [${provider}](${id}-${n+1}.md)`)
     });
@@ -77,14 +81,17 @@ function printPara(groupName, group, suffix) {
       }),
     });
   }
+  return lines.join('\n');
 }
 
-function printGroup(groupName, group, suffix) {
+function printGroup(groupName, group, suffix): string {
+  let lines = [];
+
   let id = `${group.info}-${suffix}`;
   let name = group.text;
 
-  console.log(`# ${groupName}`.toUpperCase());
-  console.log(`- [${groupName}]()`);
+  lines.push(`# ${groupName}`.toUpperCase());
+  lines.push(`- [${groupName}]()`);
 
   let children = group;
 
@@ -93,7 +100,7 @@ function printGroup(groupName, group, suffix) {
     let filename = `${id}.md`;
     let name = child.text;
     if (child.isUnreachable) continue;
-    console.log(`  - [${name}](${filename})`);
+    lines.push(`  - [${name}](${filename})`);
     Object.entries(child.providers).forEach(([provider, wss], n) => {
       //console.log(`    - [${provider}](${id}-${n+1}.md)`)
     });
@@ -114,14 +121,20 @@ function printGroup(groupName, group, suffix) {
       }),
     });
   }
+  return lines.join('\n');
 }
 
-printPara(`Polkadot & parachains`, prodRelayPolkadot, "dot");
-printPara(`Kusama & parachains`, prodRelayKusama, "ksm");
-printPara(`Test Westend & parachains`, testRelayWestend, "wnd");
-printPara(`Test Rococo & parachains`, testRelayRococo, "rcc");
-printGroup(`Live networks`, prodChains, "live");
-printGroup(`Test networks`, testChains, "test");
+function summary(): string {
+  return [
+    printPara(`Polkadot & parachains`, prodRelayPolkadot, "dot"),
+    printPara(`Kusama & parachains`, prodRelayKusama, "ksm"),
+    printPara(`Test Westend & parachains`, testRelayWestend, "wnd"),
+    printPara(`Test Rococo & parachains`, testRelayRococo, "rcc"),
+    printGroup(`Live networks`, prodChains, "live"),
+    printGroup(`Test networks`, testChains, "test"),
+  ].join('\n')
+}
 
-fs.writeFileSync("chains.yaml", YAML.stringify(chains));
-fs.writeFileSync("chains.json", JSON.stringify(chains, null, "  "));
+fs.writeFileSync("summary.yaml", YAML.stringify(chains));
+fs.writeFileSync("summary.json", JSON.stringify(chains, null, "  "));
+fs.writeFileSync("summary.md", summary());
