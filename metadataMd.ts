@@ -1,3 +1,4 @@
+#!/usr/bin/env -S deno run -A --import-map=import_map.json --compat --unstable
 // Copyright 2017-2022 @polkadot/typegen authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
@@ -375,3 +376,4 @@ export function main (): void {
   writeFile('docs/substrate/events.md', addEvents(latest));
   writeFile('docs/substrate/errors.md', addErrors(latest));
 }
+main()
