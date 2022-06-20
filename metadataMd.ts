@@ -16,6 +16,15 @@ import { unwrapStorageType } from '@polkadot/types/primitive/StorageKey';
 import rpcdata from '@polkadot/types-support/metadata/static-substrate';
 import { stringCamelCase, stringLowerFirst } from '@polkadot/util';
 
+import { ApiPromise, WsProvider } from "@polkadot/api";
+
+const wsProvider = new WsProvider(Deno.env.get("PROVIDER")??"wss://rpc.polkadot.io");
+console.log(1);
+const types = JSON.parse(Deno.env.get("TYPES")??"{}");
+console.log(2);
+const api = await ApiPromise.create({ provider: wsProvider, types });
+console.log(api.isReady);
+
 interface SectionItem {
   link?: string;
   name: string;
@@ -362,12 +371,7 @@ function writeFile (name: string, ...chunks: any[]): void {
 }
 
 export function main (): void {
-  const registry = new TypeRegistry();
-  const metadata = new Metadata(registry, rpcdata);
-
-  registry.setMetadata(metadata);
-
-  const latest = metadata.asLatest;
+  const latest = api.runtimeMetadata.asLatest;
 
   writeFile('docs/substrate/rpc.md', addRpc());
   writeFile('docs/substrate/constants.md', addConstants(latest));

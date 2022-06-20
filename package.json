@@ -1,5 +1,6 @@
 {
   "name": "subgenius",
+  "type": "module",
   "version": "0.1.12",
   "main": "./dist/index.js",
   "bin": {

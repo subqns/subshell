@@ -6,33 +6,21 @@ Events are emitted for certain operations on the runtime. The following sections
 
 (NOTE: These were generated from a static/snapshot view of a recent Substrate master node. Some items may not be available in older nodes, or in any customized implementations.)
 
-- **[alliance](#alliance)**
-
-- **[allianceMotion](#alliancemotion)**
-
-- **[assets](#assets)**
-
-- **[bagsList](#bagslist)**
-
 - **[balances](#balances)**
 
 - **[bounties](#bounties)**
 
-- **[childBounties](#childbounties)**
-
 - **[contracts](#contracts)**
 
-- **[convictionVoting](#convictionvoting)**
-
 - **[council](#council)**
+
+- **[currencies](#currencies)**
 
 - **[democracy](#democracy)**
 
 - **[electionProviderMultiPhase](#electionprovidermultiphase)**
 
 - **[elections](#elections)**
-
-- **[gilt](#gilt)**
 
 - **[grandpa](#grandpa)**
 
@@ -42,37 +30,27 @@ Events are emitted for certain operations on the runtime. The following sections
 
 - **[indices](#indices)**
 
-- **[lottery](#lottery)**
-
 - **[multisig](#multisig)**
 
-- **[nominationPools](#nominationpools)**
+- **[nftmart](#nftmart)**
+
+- **[nftmartAuction](#nftmartauction)**
+
+- **[nftmartConf](#nftmartconf)**
+
+- **[nftmartOrder](#nftmartorder)**
 
 - **[offences](#offences)**
 
-- **[preimage](#preimage)**
-
 - **[proxy](#proxy)**
 
-- **[rankedCollective](#rankedcollective)**
-
-- **[rankedPolls](#rankedpolls)**
-
 - **[recovery](#recovery)**
-
-- **[referenda](#referenda)**
-
-- **[remark](#remark)**
 
 - **[scheduler](#scheduler)**
 
 - **[session](#session)**
 
-- **[society](#society)**
-
 - **[staking](#staking)**
-
-- **[stateTrieMigration](#statetriemigration)**
 
 - **[sudo](#sudo)**
 
@@ -80,466 +58,295 @@ Events are emitted for certain operations on the runtime. The following sections
 
 - **[technicalCommittee](#technicalcommittee)**
 
-- **[technicalMembership](#technicalmembership)**
-
 - **[tips](#tips)**
 
-- **[transactionPayment](#transactionpayment)**
-
-- **[transactionStorage](#transactionstorage)**
+- **[tokens](#tokens)**
 
 - **[treasury](#treasury)**
 
-- **[uniques](#uniques)**
-
 - **[utility](#utility)**
 
-- **[vesting](#vesting)**
-
-- **[whitelist](#whitelist)**
-
-
-___
-
-
-## alliance
- 
-### AllyElevated(`AccountId32`)
-- **interface**: `api.events.alliance.AllyElevated.is`
-- **summary**:    An ally has been elevated to Fellow. 
- 
-### Announced(`PalletAllianceCid`)
-- **interface**: `api.events.alliance.Announced.is`
-- **summary**:    A new announcement has been proposed. 
- 
-### AnnouncementRemoved(`PalletAllianceCid`)
-- **interface**: `api.events.alliance.AnnouncementRemoved.is`
-- **summary**:    An on-chain announcement has been removed. 
- 
-### MemberKicked(`AccountId32`, `Option<u128>`)
-- **interface**: `api.events.alliance.MemberKicked.is`
-- **summary**:    A member has been kicked out with its deposit slashed. 
- 
-### MemberRetired(`AccountId32`, `Option<u128>`)
-- **interface**: `api.events.alliance.MemberRetired.is`
-- **summary**:    A member has retired with its deposit unreserved. 
- 
-### MembersInitialized(`Vec<AccountId32>`, `Vec<AccountId32>`, `Vec<AccountId32>`)
-- **interface**: `api.events.alliance.MembersInitialized.is`
-- **summary**:    Some accounts have been initialized as members (founders/fellows/allies). 
- 
-### NewAllyJoined(`AccountId32`, `Option<AccountId32>`, `Option<u128>`)
-- **interface**: `api.events.alliance.NewAllyJoined.is`
-- **summary**:    An account has been added as an Ally and reserved its deposit. 
- 
-### NewRuleSet(`PalletAllianceCid`)
-- **interface**: `api.events.alliance.NewRuleSet.is`
-- **summary**:    A new rule has been set. 
- 
-### UnscrupulousItemAdded(`Vec<PalletAllianceUnscrupulousItem>`)
-- **interface**: `api.events.alliance.UnscrupulousItemAdded.is`
-- **summary**:    Accounts or websites have been added into the list of unscrupulous items. 
- 
-### UnscrupulousItemRemoved(`Vec<PalletAllianceUnscrupulousItem>`)
-- **interface**: `api.events.alliance.UnscrupulousItemRemoved.is`
-- **summary**:    Accounts or websites have been removed from the list of unscrupulous items. 
-
-___
-
-
-## allianceMotion
- 
-### Approved(`H256`)
-- **interface**: `api.events.allianceMotion.Approved.is`
-- **summary**:    A motion was approved by the required threshold. 
- 
-### Closed(`H256`, `u32`, `u32`)
-- **interface**: `api.events.allianceMotion.Closed.is`
-- **summary**:    A proposal was closed because its threshold was reached or after its duration was up. 
- 
-### Disapproved(`H256`)
-- **interface**: `api.events.allianceMotion.Disapproved.is`
-- **summary**:    A motion was not approved by the required threshold. 
- 
-### Executed(`H256`, `Result<Null, SpRuntimeDispatchError>`)
-- **interface**: `api.events.allianceMotion.Executed.is`
-- **summary**:    A motion was executed; result will be `Ok` if it returned without error. 
- 
-### MemberExecuted(`H256`, `Result<Null, SpRuntimeDispatchError>`)
-- **interface**: `api.events.allianceMotion.MemberExecuted.is`
-- **summary**:    A single member did some action; result will be `Ok` if it returned without error. 
- 
-### Proposed(`AccountId32`, `u32`, `H256`, `u32`)
-- **interface**: `api.events.allianceMotion.Proposed.is`
-- **summary**:    A motion (given hash) has been proposed (by given account) with a threshold (given  `MemberCount`). 
- 
-### Voted(`AccountId32`, `H256`, `bool`, `u32`, `u32`)
-- **interface**: `api.events.allianceMotion.Voted.is`
-- **summary**:    A motion (given hash) has been voted on by given account, leaving  a tally (yes votes and no votes given respectively as `MemberCount`). 
-
-___
-
-
-## assets
- 
-### ApprovalCancelled(`u32`, `AccountId32`, `AccountId32`)
-- **interface**: `api.events.assets.ApprovalCancelled.is`
-- **summary**:    An approval for account `delegate` was cancelled by `owner`. 
- 
-### ApprovedTransfer(`u32`, `AccountId32`, `AccountId32`, `u128`)
-- **interface**: `api.events.assets.ApprovedTransfer.is`
-- **summary**:    (Additional) funds have been approved for transfer to a destination account. 
- 
-### AssetFrozen(`u32`)
-- **interface**: `api.events.assets.AssetFrozen.is`
-- **summary**:    Some asset `asset_id` was frozen. 
- 
-### AssetStatusChanged(`u32`)
-- **interface**: `api.events.assets.AssetStatusChanged.is`
-- **summary**:    An asset has had its attributes changed by the `Force` origin. 
- 
-### AssetThawed(`u32`)
-- **interface**: `api.events.assets.AssetThawed.is`
-- **summary**:    Some asset `asset_id` was thawed. 
- 
-### Burned(`u32`, `AccountId32`, `u128`)
-- **interface**: `api.events.assets.Burned.is`
-- **summary**:    Some assets were destroyed. 
- 
-### Created(`u32`, `AccountId32`, `AccountId32`)
-- **interface**: `api.events.assets.Created.is`
-- **summary**:    Some asset class was created. 
- 
-### Destroyed(`u32`)
-- **interface**: `api.events.assets.Destroyed.is`
-- **summary**:    An asset class was destroyed. 
- 
-### ForceCreated(`u32`, `AccountId32`)
-- **interface**: `api.events.assets.ForceCreated.is`
-- **summary**:    Some asset class was force-created. 
- 
-### Frozen(`u32`, `AccountId32`)
-- **interface**: `api.events.assets.Frozen.is`
-- **summary**:    Some account `who` was frozen. 
- 
-### Issued(`u32`, `AccountId32`, `u128`)
-- **interface**: `api.events.assets.Issued.is`
-- **summary**:    Some assets were issued. 
- 
-### MetadataCleared(`u32`)
-- **interface**: `api.events.assets.MetadataCleared.is`
-- **summary**:    Metadata has been cleared for an asset. 
- 
-### MetadataSet(`u32`, `Bytes`, `Bytes`, `u8`, `bool`)
-- **interface**: `api.events.assets.MetadataSet.is`
-- **summary**:    New metadata has been set for an asset. 
- 
-### OwnerChanged(`u32`, `AccountId32`)
-- **interface**: `api.events.assets.OwnerChanged.is`
-- **summary**:    The owner changed. 
- 
-### TeamChanged(`u32`, `AccountId32`, `AccountId32`, `AccountId32`)
-- **interface**: `api.events.assets.TeamChanged.is`
-- **summary**:    The management team changed. 
- 
-### Thawed(`u32`, `AccountId32`)
-- **interface**: `api.events.assets.Thawed.is`
-- **summary**:    Some account `who` was thawed. 
- 
-### Transferred(`u32`, `AccountId32`, `AccountId32`, `u128`)
-- **interface**: `api.events.assets.Transferred.is`
-- **summary**:    Some assets were transferred. 
- 
-### TransferredApproved(`u32`, `AccountId32`, `AccountId32`, `AccountId32`, `u128`)
-- **interface**: `api.events.assets.TransferredApproved.is`
-- **summary**:    An `amount` was transferred in its entirety from `owner` to `destination` by  the approved `delegate`. 
-
-___
-
-
-## bagsList
- 
-### Rebagged(`AccountId32`, `u64`, `u64`)
-- **interface**: `api.events.bagsList.Rebagged.is`
-- **summary**:    Moved an account from one bag to another. 
- 
-### ScoreUpdated(`AccountId32`, `u64`)
-- **interface**: `api.events.bagsList.ScoreUpdated.is`
-- **summary**:    Updated the score of some account to the given amount. 
 
 ___
 
 
 ## balances
  
-### BalanceSet(`AccountId32`, `u128`, `u128`)
+### BalanceSet(`AccountId`, `Balance`, `Balance`)
 - **interface**: `api.events.balances.BalanceSet.is`
-- **summary**:    A balance was set by root. 
+- **summary**:    A balance was set by root. \[who, free, reserved\] 
  
-### Deposit(`AccountId32`, `u128`)
+### Deposit(`AccountId`, `Balance`)
 - **interface**: `api.events.balances.Deposit.is`
-- **summary**:    Some amount was deposited (e.g. for transaction fees). 
+- **summary**:    Some amount was deposited (e.g. for transaction fees). \[who, deposit\] 
  
-### DustLost(`AccountId32`, `u128`)
+### DustLost(`AccountId`, `Balance`)
 - **interface**: `api.events.balances.DustLost.is`
-- **summary**:    An account was removed whose balance was non-zero but below ExistentialDeposit,  resulting in an outright loss. 
+- **summary**:    An account was removed whose balance was non-zero but below ExistentialDeposit,  resulting in an outright loss. \[account, balance\] 
  
-### Endowed(`AccountId32`, `u128`)
+### Endowed(`AccountId`, `Balance`)
 - **interface**: `api.events.balances.Endowed.is`
-- **summary**:    An account was created with some free balance. 
+- **summary**:    An account was created with some free balance. \[account, free_balance\] 
  
-### Reserved(`AccountId32`, `u128`)
+### Reserved(`AccountId`, `Balance`)
 - **interface**: `api.events.balances.Reserved.is`
-- **summary**:    Some balance was reserved (moved from free to reserved). 
+- **summary**:    Some balance was reserved (moved from free to reserved). \[who, value\] 
  
-### ReserveRepatriated(`AccountId32`, `AccountId32`, `u128`, `FrameSupportTokensMiscBalanceStatus`)
+### ReserveRepatriated(`AccountId`, `AccountId`, `Balance`, `BalanceStatus`)
 - **interface**: `api.events.balances.ReserveRepatriated.is`
-- **summary**:    Some balance was moved from the reserve of the first account to the second account.  Final argument indicates the destination balance type. 
+- **summary**:    Some balance was moved from the reserve of the first account to the second account.  Final argument indicates the destination balance type.  \[from, to, balance, destination_status\] 
  
-### Slashed(`AccountId32`, `u128`)
-- **interface**: `api.events.balances.Slashed.is`
-- **summary**:    Some amount was removed from the account (e.g. for misbehavior). 
- 
-### Transfer(`AccountId32`, `AccountId32`, `u128`)
+### Transfer(`AccountId`, `AccountId`, `Balance`)
 - **interface**: `api.events.balances.Transfer.is`
-- **summary**:    Transfer succeeded. 
+- **summary**:    Transfer succeeded. \[from, to, value\] 
  
-### Unreserved(`AccountId32`, `u128`)
+### Unreserved(`AccountId`, `Balance`)
 - **interface**: `api.events.balances.Unreserved.is`
-- **summary**:    Some balance was unreserved (moved from reserved to free). 
- 
-### Withdraw(`AccountId32`, `u128`)
-- **interface**: `api.events.balances.Withdraw.is`
-- **summary**:    Some amount was withdrawn from the account (e.g. for transaction fees). 
+- **summary**:    Some balance was unreserved (moved from reserved to free). \[who, value\] 
 
 ___
 
 
 ## bounties
  
-### BountyAwarded(`u32`, `AccountId32`)
+### BountyAwarded(`BountyIndex`, `AccountId`)
 - **interface**: `api.events.bounties.BountyAwarded.is`
-- **summary**:    A bounty is awarded to a beneficiary. 
+- **summary**:    A bounty is awarded to a beneficiary. \[index, beneficiary\] 
  
-### BountyBecameActive(`u32`)
+### BountyBecameActive(`BountyIndex`)
 - **interface**: `api.events.bounties.BountyBecameActive.is`
-- **summary**:    A bounty proposal is funded and became active. 
+- **summary**:    A bounty proposal is funded and became active. \[index\] 
  
-### BountyCanceled(`u32`)
+### BountyCanceled(`BountyIndex`)
 - **interface**: `api.events.bounties.BountyCanceled.is`
-- **summary**:    A bounty is cancelled. 
+- **summary**:    A bounty is cancelled. \[index\] 
  
-### BountyClaimed(`u32`, `u128`, `AccountId32`)
+### BountyClaimed(`BountyIndex`, `Balance`, `AccountId`)
 - **interface**: `api.events.bounties.BountyClaimed.is`
-- **summary**:    A bounty is claimed by beneficiary. 
+- **summary**:    A bounty is claimed by beneficiary. \[index, payout, beneficiary\] 
  
-### BountyExtended(`u32`)
+### BountyExtended(`BountyIndex`)
 - **interface**: `api.events.bounties.BountyExtended.is`
-- **summary**:    A bounty expiry is extended. 
+- **summary**:    A bounty expiry is extended. \[index\] 
  
-### BountyProposed(`u32`)
+### BountyProposed(`BountyIndex`)
 - **interface**: `api.events.bounties.BountyProposed.is`
-- **summary**:    New bounty proposal. 
+- **summary**:    New bounty proposal. \[index\] 
  
-### BountyRejected(`u32`, `u128`)
+### BountyRejected(`BountyIndex`, `Balance`)
 - **interface**: `api.events.bounties.BountyRejected.is`
-- **summary**:    A bounty proposal was rejected; funds were slashed. 
-
-___
-
-
-## childBounties
- 
-### Added(`u32`, `u32`)
-- **interface**: `api.events.childBounties.Added.is`
-- **summary**:    A child-bounty is added. 
- 
-### Awarded(`u32`, `u32`, `AccountId32`)
-- **interface**: `api.events.childBounties.Awarded.is`
-- **summary**:    A child-bounty is awarded to a beneficiary. 
- 
-### Canceled(`u32`, `u32`)
-- **interface**: `api.events.childBounties.Canceled.is`
-- **summary**:    A child-bounty is cancelled. 
- 
-### Claimed(`u32`, `u32`, `u128`, `AccountId32`)
-- **interface**: `api.events.childBounties.Claimed.is`
-- **summary**:    A child-bounty is claimed by beneficiary. 
+- **summary**:    A bounty proposal was rejected; funds were slashed. \[index, bond\] 
 
 ___
 
 
 ## contracts
  
-### CodeRemoved(`H256`)
+### CodeRemoved(`Hash`)
 - **interface**: `api.events.contracts.CodeRemoved.is`
-- **summary**:    A code with the specified hash was removed. 
+- **summary**:    A code with the specified hash was removed.  \[code_hash\] 
+
+   This happens when the last contract that uses this code hash was removed or evicted. 
  
-### CodeStored(`H256`)
+### CodeStored(`Hash`)
 - **interface**: `api.events.contracts.CodeStored.is`
-- **summary**:    Code with the specified hash has been stored. 
+- **summary**:    Code with the specified hash has been stored. \[code_hash\] 
  
-### ContractCodeUpdated(`AccountId32`, `H256`, `H256`)
-- **interface**: `api.events.contracts.ContractCodeUpdated.is`
-- **summary**:    A contract's code was updated. 
- 
-### ContractEmitted(`AccountId32`, `Bytes`)
+### ContractEmitted(`AccountId`, `Bytes`)
 - **interface**: `api.events.contracts.ContractEmitted.is`
-- **summary**:    A custom event emitted by the contract. 
+- **summary**:    A custom event emitted by the contract.  \[contract, data\] 
+
+   #### Params 
+
+   - `contract`: The contract that emitted the event. 
+
+  - `data`: Data supplied by the contract. Metadata generated during contract compilation is needed to decode it. 
  
-### Instantiated(`AccountId32`, `AccountId32`)
+### Evicted(`AccountId`)
+- **interface**: `api.events.contracts.Evicted.is`
+- **summary**:    Contract has been evicted and is now in tombstone state. \[contract\] 
+ 
+### Instantiated(`AccountId`, `AccountId`)
 - **interface**: `api.events.contracts.Instantiated.is`
-- **summary**:    Contract deployed by address at the specified address. 
+- **summary**:    Contract deployed by address at the specified address. \[deployer, contract\] 
  
-### Terminated(`AccountId32`, `AccountId32`)
+### Restored(`AccountId`, `AccountId`, `Hash`, `Balance`)
+- **interface**: `api.events.contracts.Restored.is`
+- **summary**:    Restoration of a contract has been successful.  \[restorer, dest, code_hash, rent_allowance\] 
+
+   #### Params 
+
+   - `restorer`: Account ID of the restoring contract. 
+
+  - `dest`: Account ID of the restored contract.
+
+  - `code_hash`: Code hash of the restored contract.
+
+  - `rent_allowance`: Rent allowance of the restored contract.
+ 
+### ScheduleUpdated(`u32`)
+- **interface**: `api.events.contracts.ScheduleUpdated.is`
+- **summary**:    Triggered when the current schedule is updated.  \[version\] 
+
+   #### Params 
+
+   - `version`: The version of the newly set schedule. 
+ 
+### Terminated(`AccountId`, `AccountId`)
 - **interface**: `api.events.contracts.Terminated.is`
-- **summary**:    Contract has been removed. 
+- **summary**:    Contract has been terminated without leaving a tombstone.  \[contract, beneficiary\] 
+
+   #### Params 
+
+   - `contract`: The contract that was terminated. 
+
+  - `beneficiary`: The account that received the contracts remaining balance.
 
    #### Note 
 
-   The only way for a contract to be removed and emitting this event is by calling  `seal_terminate`. 
-
-___
-
-
-## convictionVoting
- 
-### Delegated(`AccountId32`, `AccountId32`)
-- **interface**: `api.events.convictionVoting.Delegated.is`
-- **summary**:    An account has delegated their vote to another account. \[who, target\] 
- 
-### Undelegated(`AccountId32`)
-- **interface**: `api.events.convictionVoting.Undelegated.is`
-- **summary**:    An \[account\] has cancelled a previous delegation operation. 
+   The only way for a contract to be removed without a tombstone and emitting  this event is by calling `seal_terminate`. 
 
 ___
 
 
 ## council
  
-### Approved(`H256`)
+### Approved(`Hash`)
 - **interface**: `api.events.council.Approved.is`
-- **summary**:    A motion was approved by the required threshold. 
+- **summary**:    A motion was approved by the required threshold.  \[proposal_hash\] 
  
-### Closed(`H256`, `u32`, `u32`)
+### Closed(`Hash`, `MemberCount`, `MemberCount`)
 - **interface**: `api.events.council.Closed.is`
-- **summary**:    A proposal was closed because its threshold was reached or after its duration was up. 
+- **summary**:    A proposal was closed because its threshold was reached or after its duration was up.  \[proposal_hash, yes, no\] 
  
-### Disapproved(`H256`)
+### Disapproved(`Hash`)
 - **interface**: `api.events.council.Disapproved.is`
-- **summary**:    A motion was not approved by the required threshold. 
+- **summary**:    A motion was not approved by the required threshold.  \[proposal_hash\] 
  
-### Executed(`H256`, `Result<Null, SpRuntimeDispatchError>`)
+### Executed(`Hash`, `DispatchResult`)
 - **interface**: `api.events.council.Executed.is`
-- **summary**:    A motion was executed; result will be `Ok` if it returned without error. 
+- **summary**:    A motion was executed; result will be `Ok` if it returned without error.  \[proposal_hash, result\] 
  
-### MemberExecuted(`H256`, `Result<Null, SpRuntimeDispatchError>`)
+### MemberExecuted(`Hash`, `DispatchResult`)
 - **interface**: `api.events.council.MemberExecuted.is`
-- **summary**:    A single member did some action; result will be `Ok` if it returned without error. 
+- **summary**:    A single member did some action; result will be `Ok` if it returned without error.  \[proposal_hash, result\] 
  
-### Proposed(`AccountId32`, `u32`, `H256`, `u32`)
+### Proposed(`AccountId`, `ProposalIndex`, `Hash`, `MemberCount`)
 - **interface**: `api.events.council.Proposed.is`
-- **summary**:    A motion (given hash) has been proposed (by given account) with a threshold (given  `MemberCount`). 
+- **summary**:    A motion (given hash) has been proposed (by given account) with a threshold (given  `MemberCount`).  \[account, proposal_index, proposal_hash, threshold\] 
  
-### Voted(`AccountId32`, `H256`, `bool`, `u32`, `u32`)
+### Voted(`AccountId`, `Hash`, `bool`, `MemberCount`, `MemberCount`)
 - **interface**: `api.events.council.Voted.is`
-- **summary**:    A motion (given hash) has been voted on by given account, leaving  a tally (yes votes and no votes given respectively as `MemberCount`). 
+- **summary**:    A motion (given hash) has been voted on by given account, leaving  a tally (yes votes and no votes given respectively as `MemberCount`).  \[account, proposal_hash, voted, yes, no\] 
+
+___
+
+
+## currencies
+ 
+### BalanceUpdated(`CurrencyIdOf`, `AccountId`, `AmountOf`)
+- **interface**: `api.events.currencies.BalanceUpdated.is`
+- **summary**:    Update balance success. [currency_id, who, amount] 
+ 
+### Deposited(`CurrencyIdOf`, `AccountId`, `BalanceOf`)
+- **interface**: `api.events.currencies.Deposited.is`
+- **summary**:    Deposit success. [currency_id, who, amount] 
+ 
+### Transferred(`CurrencyIdOf`, `AccountId`, `AccountId`, `BalanceOf`)
+- **interface**: `api.events.currencies.Transferred.is`
+- **summary**:    Currency transfer success. [currency_id, from, to, amount] 
+ 
+### Withdrawn(`CurrencyIdOf`, `AccountId`, `BalanceOf`)
+- **interface**: `api.events.currencies.Withdrawn.is`
+- **summary**:    Withdraw success. [currency_id, who, amount] 
 
 ___
 
 
 ## democracy
  
-### Blacklisted(`H256`)
+### Blacklisted(`Hash`)
 - **interface**: `api.events.democracy.Blacklisted.is`
-- **summary**:    A proposal_hash has been blacklisted permanently. 
+- **summary**:    A proposal \[hash\] has been blacklisted permanently. 
  
-### Cancelled(`u32`)
+### Cancelled(`ReferendumIndex`)
 - **interface**: `api.events.democracy.Cancelled.is`
-- **summary**:    A referendum has been cancelled. 
+- **summary**:    A referendum has been cancelled. \[ref_index\] 
  
-### Delegated(`AccountId32`, `AccountId32`)
+### Delegated(`AccountId`, `AccountId`)
 - **interface**: `api.events.democracy.Delegated.is`
-- **summary**:    An account has delegated their vote to another account. 
+- **summary**:    An account has delegated their vote to another account. \[who, target\] 
  
-### Executed(`u32`, `Result<Null, SpRuntimeDispatchError>`)
+### Executed(`ReferendumIndex`, `bool`)
 - **interface**: `api.events.democracy.Executed.is`
-- **summary**:    A proposal has been enacted. 
+- **summary**:    A proposal has been enacted. \[ref_index, is_ok\] 
  
 ### ExternalTabled()
 - **interface**: `api.events.democracy.ExternalTabled.is`
 - **summary**:    An external proposal has been tabled. 
  
-### NotPassed(`u32`)
+### NotPassed(`ReferendumIndex`)
 - **interface**: `api.events.democracy.NotPassed.is`
-- **summary**:    A proposal has been rejected by referendum. 
+- **summary**:    A proposal has been rejected by referendum. \[ref_index\] 
  
-### Passed(`u32`)
+### Passed(`ReferendumIndex`)
 - **interface**: `api.events.democracy.Passed.is`
-- **summary**:    A proposal has been approved by referendum. 
+- **summary**:    A proposal has been approved by referendum. \[ref_index\] 
  
-### PreimageInvalid(`H256`, `u32`)
+### PreimageInvalid(`Hash`, `ReferendumIndex`)
 - **interface**: `api.events.democracy.PreimageInvalid.is`
-- **summary**:    A proposal could not be executed because its preimage was invalid. 
+- **summary**:    A proposal could not be executed because its preimage was invalid.  \[proposal_hash, ref_index\] 
  
-### PreimageMissing(`H256`, `u32`)
+### PreimageMissing(`Hash`, `ReferendumIndex`)
 - **interface**: `api.events.democracy.PreimageMissing.is`
-- **summary**:    A proposal could not be executed because its preimage was missing. 
+- **summary**:    A proposal could not be executed because its preimage was missing.  \[proposal_hash, ref_index\] 
  
-### PreimageNoted(`H256`, `AccountId32`, `u128`)
+### PreimageNoted(`Hash`, `AccountId`, `Balance`)
 - **interface**: `api.events.democracy.PreimageNoted.is`
-- **summary**:    A proposal's preimage was noted, and the deposit taken. 
+- **summary**:    A proposal's preimage was noted, and the deposit taken. \[proposal_hash, who, deposit\] 
  
-### PreimageReaped(`H256`, `AccountId32`, `u128`, `AccountId32`)
+### PreimageReaped(`Hash`, `AccountId`, `Balance`, `AccountId`)
 - **interface**: `api.events.democracy.PreimageReaped.is`
-- **summary**:    A registered preimage was removed and the deposit collected by the reaper. 
+- **summary**:    A registered preimage was removed and the deposit collected by the reaper.  \[proposal_hash, provider, deposit, reaper\] 
  
-### PreimageUsed(`H256`, `AccountId32`, `u128`)
+### PreimageUsed(`Hash`, `AccountId`, `Balance`)
 - **interface**: `api.events.democracy.PreimageUsed.is`
-- **summary**:    A proposal preimage was removed and used (the deposit was returned). 
+- **summary**:    A proposal preimage was removed and used (the deposit was returned).  \[proposal_hash, provider, deposit\] 
  
-### ProposalCanceled(`u32`)
-- **interface**: `api.events.democracy.ProposalCanceled.is`
-- **summary**:    A proposal got canceled. 
- 
-### Proposed(`u32`, `u128`)
+### Proposed(`PropIndex`, `Balance`)
 - **interface**: `api.events.democracy.Proposed.is`
-- **summary**:    A motion has been proposed by a public account. 
+- **summary**:    A motion has been proposed by a public account. \[proposal_index, deposit\] 
  
-### Seconded(`AccountId32`, `u32`)
-- **interface**: `api.events.democracy.Seconded.is`
-- **summary**:    An account has secconded a proposal 
- 
-### Started(`u32`, `PalletDemocracyVoteThreshold`)
+### Started(`ReferendumIndex`, `VoteThreshold`)
 - **interface**: `api.events.democracy.Started.is`
-- **summary**:    A referendum has begun. 
+- **summary**:    A referendum has begun. \[ref_index, threshold\] 
  
-### Tabled(`u32`, `u128`, `Vec<AccountId32>`)
+### Tabled(`PropIndex`, `Balance`, `Vec<AccountId>`)
 - **interface**: `api.events.democracy.Tabled.is`
-- **summary**:    A public proposal has been tabled for referendum vote. 
+- **summary**:    A public proposal has been tabled for referendum vote. \[proposal_index, deposit, depositors\] 
  
-### Undelegated(`AccountId32`)
+### Undelegated(`AccountId`)
 - **interface**: `api.events.democracy.Undelegated.is`
-- **summary**:    An account has cancelled a previous delegation operation. 
+- **summary**:    An \[account\] has cancelled a previous delegation operation. 
  
-### Vetoed(`AccountId32`, `H256`, `u32`)
+### Unlocked(`AccountId`)
+- **interface**: `api.events.democracy.Unlocked.is`
+- **summary**:    An \[account\] has been unlocked successfully. 
+ 
+### Vetoed(`AccountId`, `Hash`, `BlockNumber`)
 - **interface**: `api.events.democracy.Vetoed.is`
-- **summary**:    An external proposal has been vetoed. 
- 
-### Voted(`AccountId32`, `u32`, `PalletDemocracyVoteAccountVote`)
-- **interface**: `api.events.democracy.Voted.is`
-- **summary**:    An account has voted in a referendum 
+- **summary**:    An external proposal has been vetoed. \[who, proposal_hash, until\] 
 
 ___
 
 
 ## electionProviderMultiPhase
  
-### ElectionFinalized(`Option<PalletElectionProviderMultiPhaseElectionCompute>`)
+### ElectionFinalized(`Option<ElectionCompute>`)
 - **interface**: `api.events.electionProviderMultiPhase.ElectionFinalized.is`
 - **summary**:    The election has been finalized, with `Some` of the given computation, or else if the  election failed, `None`. 
  
-### Rewarded(`AccountId32`, `u128`)
+### Rewarded(`AccountId`, `Balance`)
 - **interface**: `api.events.electionProviderMultiPhase.Rewarded.is`
 - **summary**:    An account has been rewarded for their signed submission being finalized. 
  
@@ -547,11 +354,11 @@ ___
 - **interface**: `api.events.electionProviderMultiPhase.SignedPhaseStarted.is`
 - **summary**:    The signed phase of the given round has started. 
  
-### Slashed(`AccountId32`, `u128`)
+### Slashed(`AccountId`, `Balance`)
 - **interface**: `api.events.electionProviderMultiPhase.Slashed.is`
 - **summary**:    An account has been slashed for submitting an invalid signed submission. 
  
-### SolutionStored(`PalletElectionProviderMultiPhaseElectionCompute`, `bool`)
+### SolutionStored(`ElectionCompute`, `bool`)
 - **interface**: `api.events.electionProviderMultiPhase.SolutionStored.is`
 - **summary**:    A solution was stored with the given compute. 
 
@@ -568,9 +375,9 @@ ___
 
 ## elections
  
-### CandidateSlashed(`AccountId32`, `u128`)
+### CandidateSlashed(`AccountId`, `Balance`)
 - **interface**: `api.events.elections.CandidateSlashed.is`
-- **summary**:    A candidate was slashed by amount due to failing to obtain a seat as member or  runner-up. 
+- **summary**:    A \[candidate\] was slashed by \[amount\] due to failing to obtain a seat as member or  runner-up. 
 
    Note that old members and runners-up are also candidates. 
  
@@ -582,51 +389,30 @@ ___
 - **interface**: `api.events.elections.EmptyTerm.is`
 - **summary**:    No (or not enough) candidates existed for this round. This is different from  `NewTerm(\[\])`. See the description of `NewTerm`. 
  
-### MemberKicked(`AccountId32`)
+### MemberKicked(`AccountId`)
 - **interface**: `api.events.elections.MemberKicked.is`
-- **summary**:    A member has been removed. This should always be followed by either `NewTerm` or  `EmptyTerm`. 
+- **summary**:    A \[member\] has been removed. This should always be followed by either `NewTerm` or  `EmptyTerm`. 
  
-### NewTerm(`Vec<(AccountId32,u128)>`)
+### NewTerm(`Vec<(AccountId,Balance)>`)
 - **interface**: `api.events.elections.NewTerm.is`
-- **summary**:    A new term with new_members. This indicates that enough candidates existed to run  the election, not that enough have has been elected. The inner value must be examined  for this purpose. A `NewTerm(\[\])` indicates that some candidates got their bond  slashed and none were elected, whilst `EmptyTerm` means that no candidates existed to  begin with. 
+- **summary**:    A new term with \[new_members\]. This indicates that enough candidates existed to run  the election, not that enough have has been elected. The inner value must be examined  for this purpose. A `NewTerm(\[\])` indicates that some candidates got their bond  slashed and none were elected, whilst `EmptyTerm` means that no candidates existed to  begin with. 
  
-### Renounced(`AccountId32`)
+### Renounced(`AccountId`)
 - **interface**: `api.events.elections.Renounced.is`
 - **summary**:    Someone has renounced their candidacy. 
  
-### SeatHolderSlashed(`AccountId32`, `u128`)
+### SeatHolderSlashed(`AccountId`, `Balance`)
 - **interface**: `api.events.elections.SeatHolderSlashed.is`
-- **summary**:    A seat holder was slashed by amount by being forcefully removed from the set. 
-
-___
-
-
-## gilt
- 
-### BidPlaced(`AccountId32`, `u128`, `u32`)
-- **interface**: `api.events.gilt.BidPlaced.is`
-- **summary**:    A bid was successfully placed. 
- 
-### BidRetracted(`AccountId32`, `u128`, `u32`)
-- **interface**: `api.events.gilt.BidRetracted.is`
-- **summary**:    A bid was successfully removed (before being accepted as a gilt). 
- 
-### GiltIssued(`u32`, `u32`, `AccountId32`, `u128`)
-- **interface**: `api.events.gilt.GiltIssued.is`
-- **summary**:    A bid was accepted as a gilt. The balance may not be released until expiry. 
- 
-### GiltThawed(`u32`, `AccountId32`, `u128`, `u128`)
-- **interface**: `api.events.gilt.GiltThawed.is`
-- **summary**:    An expired gilt has been thawed. 
+- **summary**:    A \[seat holder\] was slashed by \[amount\] by being forcefully removed from the set. 
 
 ___
 
 
 ## grandpa
  
-### NewAuthorities(`Vec<(SpFinalityGrandpaAppPublic,u64)>`)
+### NewAuthorities(`AuthorityList`)
 - **interface**: `api.events.grandpa.NewAuthorities.is`
-- **summary**:    New authority set has been applied. 
+- **summary**:    New authority set has been applied. \[authority_set\] 
  
 ### Paused()
 - **interface**: `api.events.grandpa.Paused.is`
@@ -641,45 +427,45 @@ ___
 
 ## identity
  
-### IdentityCleared(`AccountId32`, `u128`)
+### IdentityCleared(`AccountId`, `Balance`)
 - **interface**: `api.events.identity.IdentityCleared.is`
-- **summary**:    A name was cleared, and the given balance returned. 
+- **summary**:    A name was cleared, and the given balance returned. \[who, deposit\] 
  
-### IdentityKilled(`AccountId32`, `u128`)
+### IdentityKilled(`AccountId`, `Balance`)
 - **interface**: `api.events.identity.IdentityKilled.is`
-- **summary**:    A name was removed and the given balance slashed. 
+- **summary**:    A name was removed and the given balance slashed. \[who, deposit\] 
  
-### IdentitySet(`AccountId32`)
+### IdentitySet(`AccountId`)
 - **interface**: `api.events.identity.IdentitySet.is`
-- **summary**:    A name was set or reset (which will remove all judgements). 
+- **summary**:    A name was set or reset (which will remove all judgements). \[who\] 
  
-### JudgementGiven(`AccountId32`, `u32`)
+### JudgementGiven(`AccountId`, `RegistrarIndex`)
 - **interface**: `api.events.identity.JudgementGiven.is`
-- **summary**:    A judgement was given by a registrar. 
+- **summary**:    A judgement was given by a registrar. \[target, registrar_index\] 
  
-### JudgementRequested(`AccountId32`, `u32`)
+### JudgementRequested(`AccountId`, `RegistrarIndex`)
 - **interface**: `api.events.identity.JudgementRequested.is`
-- **summary**:    A judgement was asked from a registrar. 
+- **summary**:    A judgement was asked from a registrar. \[who, registrar_index\] 
  
-### JudgementUnrequested(`AccountId32`, `u32`)
+### JudgementUnrequested(`AccountId`, `RegistrarIndex`)
 - **interface**: `api.events.identity.JudgementUnrequested.is`
-- **summary**:    A judgement request was retracted. 
+- **summary**:    A judgement request was retracted. \[who, registrar_index\] 
  
-### RegistrarAdded(`u32`)
+### RegistrarAdded(`RegistrarIndex`)
 - **interface**: `api.events.identity.RegistrarAdded.is`
-- **summary**:    A registrar was added. 
+- **summary**:    A registrar was added. \[registrar_index\] 
  
-### SubIdentityAdded(`AccountId32`, `AccountId32`, `u128`)
+### SubIdentityAdded(`AccountId`, `AccountId`, `Balance`)
 - **interface**: `api.events.identity.SubIdentityAdded.is`
-- **summary**:    A sub-identity was added to an identity and the deposit paid. 
+- **summary**:    A sub-identity was added to an identity and the deposit paid. \[sub, main, deposit\] 
  
-### SubIdentityRemoved(`AccountId32`, `AccountId32`, `u128`)
+### SubIdentityRemoved(`AccountId`, `AccountId`, `Balance`)
 - **interface**: `api.events.identity.SubIdentityRemoved.is`
-- **summary**:    A sub-identity was removed from an identity and the deposit freed. 
+- **summary**:    A sub-identity was removed from an identity and the deposit freed.  \[sub, main, deposit\] 
  
-### SubIdentityRevoked(`AccountId32`, `AccountId32`, `u128`)
+### SubIdentityRevoked(`AccountId`, `AccountId`, `Balance`)
 - **interface**: `api.events.identity.SubIdentityRevoked.is`
-- **summary**:    A sub-identity was cleared, and the given deposit repatriated from the  main identity account to the sub-identity account. 
+- **summary**:    A sub-identity was cleared, and the given deposit repatriated from the  main identity account to the sub-identity account. \[sub, main, deposit\] 
 
 ___
 
@@ -690,547 +476,326 @@ ___
 - **interface**: `api.events.imOnline.AllGood.is`
 - **summary**:    At the end of the session, no offence was committed. 
  
-### HeartbeatReceived(`PalletImOnlineSr25519AppSr25519Public`)
+### HeartbeatReceived(`AuthorityId`)
 - **interface**: `api.events.imOnline.HeartbeatReceived.is`
-- **summary**:    A new heartbeat was received from `AuthorityId`. 
+- **summary**:    A new heartbeat was received from `AuthorityId` \[authority_id\] 
  
-### SomeOffline(`Vec<(AccountId32,PalletStakingExposure)>`)
+### SomeOffline(`Vec<IdentificationTuple>`)
 - **interface**: `api.events.imOnline.SomeOffline.is`
-- **summary**:    At the end of the session, at least one validator was found to be offline. 
+- **summary**:    At the end of the session, at least one validator was found to be \[offline\]. 
 
 ___
 
 
 ## indices
  
-### IndexAssigned(`AccountId32`, `u32`)
+### IndexAssigned(`AccountId`, `AccountIndex`)
 - **interface**: `api.events.indices.IndexAssigned.is`
-- **summary**:    A account index was assigned. 
+- **summary**:    A account index was assigned. \[index, who\] 
  
-### IndexFreed(`u32`)
+### IndexFreed(`AccountIndex`)
 - **interface**: `api.events.indices.IndexFreed.is`
-- **summary**:    A account index has been freed up (unassigned). 
+- **summary**:    A account index has been freed up (unassigned). \[index\] 
  
-### IndexFrozen(`u32`, `AccountId32`)
+### IndexFrozen(`AccountIndex`, `AccountId`)
 - **interface**: `api.events.indices.IndexFrozen.is`
-- **summary**:    A account index has been frozen to its current account ID. 
-
-___
-
-
-## lottery
- 
-### CallsUpdated()
-- **interface**: `api.events.lottery.CallsUpdated.is`
-- **summary**:    A new set of calls have been set! 
- 
-### LotteryStarted()
-- **interface**: `api.events.lottery.LotteryStarted.is`
-- **summary**:    A lottery has been started! 
- 
-### TicketBought(`AccountId32`, `(u8,u8)`)
-- **interface**: `api.events.lottery.TicketBought.is`
-- **summary**:    A ticket has been bought! 
- 
-### Winner(`AccountId32`, `u128`)
-- **interface**: `api.events.lottery.Winner.is`
-- **summary**:    A winner has been chosen! 
+- **summary**:    A account index has been frozen to its current account ID. \[index, who\] 
 
 ___
 
 
 ## multisig
  
-### MultisigApproval(`AccountId32`, `PalletMultisigTimepoint`, `AccountId32`, `[u8;32]`)
+### MultisigApproval(`AccountId`, `Timepoint`, `AccountId`, `CallHash`)
 - **interface**: `api.events.multisig.MultisigApproval.is`
-- **summary**:    A multisig operation has been approved by someone. 
+- **summary**:    A multisig operation has been approved by someone.  \[approving, timepoint, multisig, call_hash\] 
  
-### MultisigCancelled(`AccountId32`, `PalletMultisigTimepoint`, `AccountId32`, `[u8;32]`)
+### MultisigCancelled(`AccountId`, `Timepoint`, `AccountId`, `CallHash`)
 - **interface**: `api.events.multisig.MultisigCancelled.is`
-- **summary**:    A multisig operation has been cancelled. 
+- **summary**:    A multisig operation has been cancelled. \[cancelling, timepoint, multisig, call_hash\] 
  
-### MultisigExecuted(`AccountId32`, `PalletMultisigTimepoint`, `AccountId32`, `[u8;32]`, `Result<Null, SpRuntimeDispatchError>`)
+### MultisigExecuted(`AccountId`, `Timepoint`, `AccountId`, `CallHash`, `DispatchResult`)
 - **interface**: `api.events.multisig.MultisigExecuted.is`
-- **summary**:    A multisig operation has been executed. 
+- **summary**:    A multisig operation has been executed. \[approving, timepoint, multisig, call_hash\] 
  
-### NewMultisig(`AccountId32`, `AccountId32`, `[u8;32]`)
+### NewMultisig(`AccountId`, `AccountId`, `CallHash`)
 - **interface**: `api.events.multisig.NewMultisig.is`
-- **summary**:    A new multisig operation has begun. 
+- **summary**:    A new multisig operation has begun. \[approving, multisig, call_hash\] 
 
 ___
 
 
-## nominationPools
+## nftmart
  
-### Bonded(`AccountId32`, `u32`, `u128`, `bool`)
-- **interface**: `api.events.nominationPools.Bonded.is`
-- **summary**:    A member has became bonded in a pool. 
+### BurnedToken(`AccountId`, `ClassIdOf`, `TokenIdOf`, `TokenIdOf`, `Balance`)
+- **interface**: `api.events.nftmart.BurnedToken.is`
+- **summary**:    Burned NFT token. \[owner, class_id, token_id, quantity, unreserved\] 
  
-### Created(`AccountId32`, `u32`)
-- **interface**: `api.events.nominationPools.Created.is`
-- **summary**:    A pool has been created. 
+### CreatedClass(`AccountId`, `ClassIdOf`)
+- **interface**: `api.events.nftmart.CreatedClass.is`
+- **summary**:    Created NFT class. \[owner, class_id\] 
  
-### Destroyed(`u32`)
-- **interface**: `api.events.nominationPools.Destroyed.is`
-- **summary**:    A pool has been destroyed. 
+### DestroyedClass(`AccountId`, `ClassIdOf`, `AccountId`)
+- **interface**: `api.events.nftmart.DestroyedClass.is`
+- **summary**:    Destroyed NFT class. \[owner, class_id, dest\] 
  
-### MemberRemoved(`u32`, `AccountId32`)
-- **interface**: `api.events.nominationPools.MemberRemoved.is`
-- **summary**:    A member has been removed from a pool. 
+### MintedToken(`AccountId`, `AccountId`, `ClassIdOf`, `TokenIdOf`, `TokenIdOf`)
+- **interface**: `api.events.nftmart.MintedToken.is`
+- **summary**:    Minted NFT token. \[from, to, class_id, token_id, quantity\] 
+ 
+### TransferredToken(`AccountId`, `AccountId`, `ClassIdOf`, `TokenIdOf`, `TokenIdOf`)
+- **interface**: `api.events.nftmart.TransferredToken.is`
+- **summary**:    Transferred NFT token. \[from, to, class_id, token_id, quantity\] 
+ 
+### UpdatedClass(`AccountId`, `ClassIdOf`)
+- **interface**: `api.events.nftmart.UpdatedClass.is`
+- **summary**:    Updated NFT class. \[owner, class_id\] 
+ 
+### UpdatedToken(`AccountId`, `ClassIdOf`, `TokenIdOf`)
+- **interface**: `api.events.nftmart.UpdatedToken.is`
+- **summary**:    Updated NFT token beneficiary, quantity, metadata, royalty. \[owner, class_id, token_id\] 
+ 
+### UpdatedTokenMetadata(`AccountId`, `ClassIdOf`, `TokenIdOf`)
+- **interface**: `api.events.nftmart.UpdatedTokenMetadata.is`
+- **summary**:    Updated NFT token metadata. \[owner, class_id, token_id\] 
+ 
+### UpdatedTokenRoyalty(`AccountId`, `ClassIdOf`, `TokenIdOf`, `Option<PerU16>`)
+- **interface**: `api.events.nftmart.UpdatedTokenRoyalty.is`
+- **summary**:    Updated NFT token royalty. \[beneficiary, class_id, token_id, royalty\] 
+ 
+### UpdatedTokenRoyaltyBeneficiary(`AccountId`, `ClassIdOf`, `TokenIdOf`, `AccountId`)
+- **interface**: `api.events.nftmart.UpdatedTokenRoyaltyBeneficiary.is`
+- **summary**:    Updated NFT token royalty beneficiary. \[from, class_id, token_id, to\] 
 
-   The removal can be voluntary (withdrawn all unbonded funds) or involuntary (kicked). 
- 
-### PaidOut(`AccountId32`, `u32`, `u128`)
-- **interface**: `api.events.nominationPools.PaidOut.is`
-- **summary**:    A payout has been made to a member. 
- 
-### PoolSlashed(`u32`, `u128`)
-- **interface**: `api.events.nominationPools.PoolSlashed.is`
-- **summary**:    The active balance of pool `pool_id` has been slashed to `balance`. 
- 
-### RolesUpdated(`Option<AccountId32>`, `Option<AccountId32>`, `Option<AccountId32>`)
-- **interface**: `api.events.nominationPools.RolesUpdated.is`
-- **summary**:    The roles of a pool have been updated to the given new roles. Note that the depositor  can never change. 
- 
-### StateChanged(`u32`, `PalletNominationPoolsPoolState`)
-- **interface**: `api.events.nominationPools.StateChanged.is`
-- **summary**:    The state of a pool has changed 
- 
-### Unbonded(`AccountId32`, `u32`, `u128`, `u128`)
-- **interface**: `api.events.nominationPools.Unbonded.is`
-- **summary**:    A member has unbonded from their pool. 
+___
 
-   - `balance` is the corresponding balance of the number of points that has been  requested to be unbonded (the argument of the `unbond` transaction) from the bonded  pool. 
 
-  - `points` is the number of points that are issued as a result of `balance` being dissolved into the corresponding unbonding pool. 
-
-   In the absence of slashing, these values will match. In the presence of slashing, the  number of points that are issued in the unbonding pool will be less than the amount  requested to be unbonded. 
+## nftmartAuction
  
-### UnbondingPoolSlashed(`u32`, `u32`, `u128`)
-- **interface**: `api.events.nominationPools.UnbondingPoolSlashed.is`
-- **summary**:    The unbond pool at `era` of pool `pool_id` has been slashed to `balance`. 
+### BidBritishAuction(`AccountId`, `GlobalId`)
+- **interface**: `api.events.nftmartAuction.BidBritishAuction.is`
  
-### Withdrawn(`AccountId32`, `u32`, `u128`, `u128`)
-- **interface**: `api.events.nominationPools.Withdrawn.is`
-- **summary**:    A member has withdrawn from their pool. 
+### BidDutchAuction(`AccountId`, `GlobalId`)
+- **interface**: `api.events.nftmartAuction.BidDutchAuction.is`
+ 
+### CreatedBritishAuction(`AccountId`, `GlobalId`)
+- **interface**: `api.events.nftmartAuction.CreatedBritishAuction.is`
+- **summary**:    CreatedBritishAuction \[who, auction_id\] 
+ 
+### CreatedDutchAuction(`AccountId`, `GlobalId`)
+- **interface**: `api.events.nftmartAuction.CreatedDutchAuction.is`
+ 
+### HammerBritishAuction(`AccountId`, `GlobalId`, `Option<(bool,AccountId,PerU16)>`, `Option<Bytes>`)
+- **interface**: `api.events.nftmartAuction.HammerBritishAuction.is`
+ 
+### RedeemedBritishAuction(`AccountId`, `GlobalId`, `Option<(bool,AccountId,PerU16)>`, `Option<Bytes>`)
+- **interface**: `api.events.nftmartAuction.RedeemedBritishAuction.is`
+ 
+### RedeemedDutchAuction(`AccountId`, `GlobalId`, `Option<(bool,AccountId,PerU16)>`, `Option<Bytes>`)
+- **interface**: `api.events.nftmartAuction.RedeemedDutchAuction.is`
+ 
+### RemovedBritishAuction(`AccountId`, `GlobalId`)
+- **interface**: `api.events.nftmartAuction.RemovedBritishAuction.is`
+- **summary**:    RemovedBritishAuction \[who, auction_id\] 
+ 
+### RemovedDutchAuction(`AccountId`, `GlobalId`)
+- **interface**: `api.events.nftmartAuction.RemovedDutchAuction.is`
 
-   The given number of `points` have been dissolved in return of `balance`. 
+___
 
-   Similar to `Unbonded` event, in the absence of slashing, the ratio of point to balance  will be 1. 
+
+## nftmartConf
+ 
+### AddWhitelist(`AccountId`)
+- **interface**: `api.events.nftmartConf.AddWhitelist.is`
+- **summary**:    AddWhitelist \[who\] 
+ 
+### CreatedCategory(`GlobalId`)
+- **interface**: `api.events.nftmartConf.CreatedCategory.is`
+- **summary**:    Created NFT common category. \[category_id\] 
+ 
+### RemoveWhitelist(`AccountId`)
+- **interface**: `api.events.nftmartConf.RemoveWhitelist.is`
+- **summary**:    RemoveWhitelist \[who\] 
+ 
+### UpdatedCategory(`GlobalId`)
+- **interface**: `api.events.nftmartConf.UpdatedCategory.is`
+- **summary**:    Updated NFT common category. \[category_id\] 
+
+___
+
+
+## nftmartOrder
+ 
+### CreatedOffer(`AccountId`, `GlobalId`)
+- **interface**: `api.events.nftmartOrder.CreatedOffer.is`
+- **summary**:    CreatedOffer \[who, order_id\] 
+ 
+### CreatedOrder(`AccountId`, `GlobalId`)
+- **interface**: `api.events.nftmartOrder.CreatedOrder.is`
+- **summary**:    CreatedOrder \[who, order_id\] 
+ 
+### RemovedOffer(`AccountId`, `GlobalId`)
+- **interface**: `api.events.nftmartOrder.RemovedOffer.is`
+ 
+### RemovedOrder(`AccountId`, `GlobalId`)
+- **interface**: `api.events.nftmartOrder.RemovedOrder.is`
+- **summary**:    RemovedOrder \[who, order_id\] 
+ 
+### TakenOffer(`AccountId`, `AccountId`, `GlobalId`, `Option<(bool,AccountId,PerU16)>`, `Option<Bytes>`)
+- **interface**: `api.events.nftmartOrder.TakenOffer.is`
+- **summary**:    TakenOrder \[token_owner, offer_owner, order_id\] 
+ 
+### TakenOrder(`AccountId`, `AccountId`, `GlobalId`, `Option<(bool,AccountId,PerU16)>`, `Option<Bytes>`)
+- **interface**: `api.events.nftmartOrder.TakenOrder.is`
+- **summary**:    TakenOrder \[purchaser, order_owner, order_id\] 
 
 ___
 
 
 ## offences
  
-### Offence(`[u8;16]`, `Bytes`)
+### Offence(`Kind`, `OpaqueTimeSlot`)
 - **interface**: `api.events.offences.Offence.is`
 - **summary**:    There is an offence reported of the given `kind` happened at the `session_index` and  (kind-specific) time slot. This event is not deposited for duplicate slashes.  \[kind, timeslot\]. 
 
 ___
 
 
-## preimage
- 
-### Cleared(`H256`)
-- **interface**: `api.events.preimage.Cleared.is`
-- **summary**:    A preimage has ben cleared. 
- 
-### Noted(`H256`)
-- **interface**: `api.events.preimage.Noted.is`
-- **summary**:    A preimage has been noted. 
- 
-### Requested(`H256`)
-- **interface**: `api.events.preimage.Requested.is`
-- **summary**:    A preimage has been requested. 
-
-___
-
-
 ## proxy
  
-### Announced(`AccountId32`, `AccountId32`, `H256`)
+### Announced(`AccountId`, `AccountId`, `Hash`)
 - **interface**: `api.events.proxy.Announced.is`
-- **summary**:    An announcement was placed to make a call in the future. 
+- **summary**:    An announcement was placed to make a call in the future. \[real, proxy, call_hash\] 
  
-### AnonymousCreated(`AccountId32`, `AccountId32`, `NodeRuntimeProxyType`, `u16`)
+### AnonymousCreated(`AccountId`, `AccountId`, `ProxyType`, `u16`)
 - **interface**: `api.events.proxy.AnonymousCreated.is`
-- **summary**:    Anonymous account has been created by new proxy with given  disambiguation index and proxy type. 
+- **summary**:    Anonymous account has been created by new proxy with given  disambiguation index and proxy type. \[anonymous, who, proxy_type, disambiguation_index\] 
  
-### ProxyAdded(`AccountId32`, `AccountId32`, `NodeRuntimeProxyType`, `u32`)
-- **interface**: `api.events.proxy.ProxyAdded.is`
-- **summary**:    A proxy was added. 
- 
-### ProxyExecuted(`Result<Null, SpRuntimeDispatchError>`)
+### ProxyExecuted(`DispatchResult`)
 - **interface**: `api.events.proxy.ProxyExecuted.is`
-- **summary**:    A proxy was executed correctly, with the given. 
- 
-### ProxyRemoved(`AccountId32`, `AccountId32`, `NodeRuntimeProxyType`, `u32`)
-- **interface**: `api.events.proxy.ProxyRemoved.is`
-- **summary**:    A proxy was removed. 
-
-___
-
-
-## rankedCollective
- 
-### MemberAdded(`AccountId32`)
-- **interface**: `api.events.rankedCollective.MemberAdded.is`
-- **summary**:    A member `who` has been added. 
- 
-### MemberRemoved(`AccountId32`, `u16`)
-- **interface**: `api.events.rankedCollective.MemberRemoved.is`
-- **summary**:    The member `who` of given `rank` has been removed from the collective. 
- 
-### RankChanged(`AccountId32`, `u16`)
-- **interface**: `api.events.rankedCollective.RankChanged.is`
-- **summary**:    The member `who`'s rank has been changed to the given `rank`. 
- 
-### Voted(`AccountId32`, `u32`, `PalletRankedCollectiveVoteRecord`, `PalletRankedCollectiveTally`)
-- **interface**: `api.events.rankedCollective.Voted.is`
-- **summary**:    The member `who` has voted for the `poll` with the given `vote` leading to an updated  `tally`. 
-
-___
-
-
-## rankedPolls
- 
-### Approved(`u32`)
-- **interface**: `api.events.rankedPolls.Approved.is`
-- **summary**:    A referendum has been approved and its proposal has been scheduled. 
- 
-### Cancelled(`u32`, `PalletRankedCollectiveTally`)
-- **interface**: `api.events.rankedPolls.Cancelled.is`
-- **summary**:    A referendum has been cancelled. 
- 
-### ConfirmAborted(`u32`)
-- **interface**: `api.events.rankedPolls.ConfirmAborted.is`
- 
-### Confirmed(`u32`, `PalletRankedCollectiveTally`)
-- **interface**: `api.events.rankedPolls.Confirmed.is`
-- **summary**:    A referendum has ended its confirmation phase and is ready for approval. 
- 
-### ConfirmStarted(`u32`)
-- **interface**: `api.events.rankedPolls.ConfirmStarted.is`
- 
-### DecisionDepositPlaced(`u32`, `AccountId32`, `u128`)
-- **interface**: `api.events.rankedPolls.DecisionDepositPlaced.is`
-- **summary**:    The decision deposit has been placed. 
- 
-### DecisionDepositRefunded(`u32`, `AccountId32`, `u128`)
-- **interface**: `api.events.rankedPolls.DecisionDepositRefunded.is`
-- **summary**:    The decision deposit has been refunded. 
- 
-### DecisionStarted(`u32`, `u16`, `H256`, `PalletRankedCollectiveTally`)
-- **interface**: `api.events.rankedPolls.DecisionStarted.is`
-- **summary**:    A referendum has moved into the deciding phase. 
- 
-### DepositSlashed(`AccountId32`, `u128`)
-- **interface**: `api.events.rankedPolls.DepositSlashed.is`
-- **summary**:    A deposit has been slashaed. 
- 
-### Killed(`u32`, `PalletRankedCollectiveTally`)
-- **interface**: `api.events.rankedPolls.Killed.is`
-- **summary**:    A referendum has been killed. 
- 
-### Rejected(`u32`, `PalletRankedCollectiveTally`)
-- **interface**: `api.events.rankedPolls.Rejected.is`
-- **summary**:    A proposal has been rejected by referendum. 
- 
-### Submitted(`u32`, `u16`, `H256`)
-- **interface**: `api.events.rankedPolls.Submitted.is`
-- **summary**:    A referendum has being submitted. 
- 
-### TimedOut(`u32`, `PalletRankedCollectiveTally`)
-- **interface**: `api.events.rankedPolls.TimedOut.is`
-- **summary**:    A referendum has been timed out without being decided. 
+- **summary**:    A proxy was executed correctly, with the given \[result\]. 
 
 ___
 
 
 ## recovery
  
-### AccountRecovered(`AccountId32`, `AccountId32`)
+### AccountRecovered(`AccountId`, `AccountId`)
 - **interface**: `api.events.recovery.AccountRecovered.is`
-- **summary**:    Lost account has been successfully recovered by rescuer account. 
+- **summary**:    Lost account has been successfully recovered by rescuer account.  \[lost, rescuer\] 
  
-### RecoveryClosed(`AccountId32`, `AccountId32`)
+### RecoveryClosed(`AccountId`, `AccountId`)
 - **interface**: `api.events.recovery.RecoveryClosed.is`
-- **summary**:    A recovery process for lost account by rescuer account has been closed. 
+- **summary**:    A recovery process for lost account by rescuer account has been closed.  \[lost, rescuer\] 
  
-### RecoveryCreated(`AccountId32`)
+### RecoveryCreated(`AccountId`)
 - **interface**: `api.events.recovery.RecoveryCreated.is`
-- **summary**:    A recovery process has been set up for an account. 
+- **summary**:    A recovery process has been set up for an \[account\]. 
  
-### RecoveryInitiated(`AccountId32`, `AccountId32`)
+### RecoveryInitiated(`AccountId`, `AccountId`)
 - **interface**: `api.events.recovery.RecoveryInitiated.is`
-- **summary**:    A recovery process has been initiated for lost account by rescuer account. 
+- **summary**:    A recovery process has been initiated for lost account by rescuer account.  \[lost, rescuer\] 
  
-### RecoveryRemoved(`AccountId32`)
+### RecoveryRemoved(`AccountId`)
 - **interface**: `api.events.recovery.RecoveryRemoved.is`
-- **summary**:    A recovery process has been removed for an account. 
+- **summary**:    A recovery process has been removed for an \[account\]. 
  
-### RecoveryVouched(`AccountId32`, `AccountId32`, `AccountId32`)
+### RecoveryVouched(`AccountId`, `AccountId`, `AccountId`)
 - **interface**: `api.events.recovery.RecoveryVouched.is`
-- **summary**:    A recovery process for lost account by rescuer account has been vouched for by sender. 
-
-___
-
-
-## referenda
- 
-### Approved(`u32`)
-- **interface**: `api.events.referenda.Approved.is`
-- **summary**:    A referendum has been approved and its proposal has been scheduled. 
- 
-### Cancelled(`u32`, `PalletConvictionVotingTally`)
-- **interface**: `api.events.referenda.Cancelled.is`
-- **summary**:    A referendum has been cancelled. 
- 
-### ConfirmAborted(`u32`)
-- **interface**: `api.events.referenda.ConfirmAborted.is`
- 
-### Confirmed(`u32`, `PalletConvictionVotingTally`)
-- **interface**: `api.events.referenda.Confirmed.is`
-- **summary**:    A referendum has ended its confirmation phase and is ready for approval. 
- 
-### ConfirmStarted(`u32`)
-- **interface**: `api.events.referenda.ConfirmStarted.is`
- 
-### DecisionDepositPlaced(`u32`, `AccountId32`, `u128`)
-- **interface**: `api.events.referenda.DecisionDepositPlaced.is`
-- **summary**:    The decision deposit has been placed. 
- 
-### DecisionDepositRefunded(`u32`, `AccountId32`, `u128`)
-- **interface**: `api.events.referenda.DecisionDepositRefunded.is`
-- **summary**:    The decision deposit has been refunded. 
- 
-### DecisionStarted(`u32`, `u16`, `H256`, `PalletConvictionVotingTally`)
-- **interface**: `api.events.referenda.DecisionStarted.is`
-- **summary**:    A referendum has moved into the deciding phase. 
- 
-### DepositSlashed(`AccountId32`, `u128`)
-- **interface**: `api.events.referenda.DepositSlashed.is`
-- **summary**:    A deposit has been slashaed. 
- 
-### Killed(`u32`, `PalletConvictionVotingTally`)
-- **interface**: `api.events.referenda.Killed.is`
-- **summary**:    A referendum has been killed. 
- 
-### Rejected(`u32`, `PalletConvictionVotingTally`)
-- **interface**: `api.events.referenda.Rejected.is`
-- **summary**:    A proposal has been rejected by referendum. 
- 
-### Submitted(`u32`, `u16`, `H256`)
-- **interface**: `api.events.referenda.Submitted.is`
-- **summary**:    A referendum has being submitted. 
- 
-### TimedOut(`u32`, `PalletConvictionVotingTally`)
-- **interface**: `api.events.referenda.TimedOut.is`
-- **summary**:    A referendum has been timed out without being decided. 
-
-___
-
-
-## remark
- 
-### Stored(`AccountId32`, `H256`)
-- **interface**: `api.events.remark.Stored.is`
-- **summary**:    Stored data off chain. 
+- **summary**:    A recovery process for lost account by rescuer account has been vouched for by sender.  \[lost, rescuer, sender\] 
 
 ___
 
 
 ## scheduler
  
-### CallLookupFailed(`(u32,u32)`, `Option<Bytes>`, `FrameSupportScheduleLookupError`)
-- **interface**: `api.events.scheduler.CallLookupFailed.is`
-- **summary**:    The call for the provided hash was not found so the task has been aborted. 
- 
-### Canceled(`u32`, `u32`)
+### Canceled(`BlockNumber`, `u32`)
 - **interface**: `api.events.scheduler.Canceled.is`
-- **summary**:    Canceled some task. 
+- **summary**:    Canceled some task. \[when, index\] 
  
-### Dispatched(`(u32,u32)`, `Option<Bytes>`, `Result<Null, SpRuntimeDispatchError>`)
+### Dispatched(`TaskAddress`, `Option<Bytes>`, `DispatchResult`)
 - **interface**: `api.events.scheduler.Dispatched.is`
-- **summary**:    Dispatched some task. 
+- **summary**:    Dispatched some task. \[task, id, result\] 
  
-### Scheduled(`u32`, `u32`)
+### Scheduled(`BlockNumber`, `u32`)
 - **interface**: `api.events.scheduler.Scheduled.is`
-- **summary**:    Scheduled some task. 
+- **summary**:    Scheduled some task. \[when, index\] 
 
 ___
 
 
 ## session
  
-### NewSession(`u32`)
+### NewSession(`SessionIndex`)
 - **interface**: `api.events.session.NewSession.is`
-- **summary**:    New session has happened. Note that the argument is the session index, not the  block number as the type might suggest. 
-
-___
-
-
-## society
- 
-### AutoUnbid(`AccountId32`)
-- **interface**: `api.events.society.AutoUnbid.is`
-- **summary**:    A candidate was dropped (due to an excess of bids in the system). 
- 
-### Bid(`AccountId32`, `u128`)
-- **interface**: `api.events.society.Bid.is`
-- **summary**:    A membership bid just happened. The given account is the candidate's ID and their offer  is the second. 
- 
-### CandidateSuspended(`AccountId32`)
-- **interface**: `api.events.society.CandidateSuspended.is`
-- **summary**:    A candidate has been suspended 
- 
-### Challenged(`AccountId32`)
-- **interface**: `api.events.society.Challenged.is`
-- **summary**:    A member has been challenged 
- 
-### DefenderVote(`AccountId32`, `bool`)
-- **interface**: `api.events.society.DefenderVote.is`
-- **summary**:    A vote has been placed for a defending member 
- 
-### Deposit(`u128`)
-- **interface**: `api.events.society.Deposit.is`
-- **summary**:    Some funds were deposited into the society account. 
- 
-### Founded(`AccountId32`)
-- **interface**: `api.events.society.Founded.is`
-- **summary**:    The society is founded by the given identity. 
- 
-### Inducted(`AccountId32`, `Vec<AccountId32>`)
-- **interface**: `api.events.society.Inducted.is`
-- **summary**:    A group of candidates have been inducted. The batch's primary is the first value, the  batch in full is the second. 
- 
-### MemberSuspended(`AccountId32`)
-- **interface**: `api.events.society.MemberSuspended.is`
-- **summary**:    A member has been suspended 
- 
-### NewMaxMembers(`u32`)
-- **interface**: `api.events.society.NewMaxMembers.is`
-- **summary**:    A new \[max\] member count has been set 
- 
-### SuspendedMemberJudgement(`AccountId32`, `bool`)
-- **interface**: `api.events.society.SuspendedMemberJudgement.is`
-- **summary**:    A suspended member has been judged. 
- 
-### Unbid(`AccountId32`)
-- **interface**: `api.events.society.Unbid.is`
-- **summary**:    A candidate was dropped (by their request). 
- 
-### Unfounded(`AccountId32`)
-- **interface**: `api.events.society.Unfounded.is`
-- **summary**:    Society is unfounded. 
- 
-### Unvouch(`AccountId32`)
-- **interface**: `api.events.society.Unvouch.is`
-- **summary**:    A candidate was dropped (by request of who vouched for them). 
- 
-### Vote(`AccountId32`, `AccountId32`, `bool`)
-- **interface**: `api.events.society.Vote.is`
-- **summary**:    A vote has been placed 
- 
-### Vouch(`AccountId32`, `u128`, `AccountId32`)
-- **interface**: `api.events.society.Vouch.is`
-- **summary**:    A membership bid just happened by vouching. The given account is the candidate's ID and  their offer is the second. The vouching party is the third. 
+- **summary**:    New session has happened. Note that the argument is the \[session_index\], not the block  number as the type might suggest. 
 
 ___
 
 
 ## staking
  
-### Bonded(`AccountId32`, `u128`)
+### Bonded(`AccountId`, `Balance`)
 - **interface**: `api.events.staking.Bonded.is`
 - **summary**:    An account has bonded this amount. \[stash, amount\] 
 
    NOTE: This event is only emitted when funds are bonded via a dispatchable. Notably,  it will not be emitted for staking rewards when they are added to stake. 
  
-### Chilled(`AccountId32`)
+### Chilled(`AccountId`)
 - **interface**: `api.events.staking.Chilled.is`
 - **summary**:    An account has stopped participating as either a validator or nominator.  \[stash\] 
  
-### EraPaid(`u32`, `u128`, `u128`)
-- **interface**: `api.events.staking.EraPaid.is`
+### EraPayout(`EraIndex`, `Balance`, `Balance`)
+- **interface**: `api.events.staking.EraPayout.is`
 - **summary**:    The era payout has been set; the first balance is the validator-payout; the second is  the remainder from the maximum amount of reward.  \[era_index, validator_payout, remainder\] 
  
-### Kicked(`AccountId32`, `AccountId32`)
+### Kicked(`AccountId`, `AccountId`)
 - **interface**: `api.events.staking.Kicked.is`
 - **summary**:    A nominator has been kicked from a validator. \[nominator, stash\] 
  
-### OldSlashingReportDiscarded(`u32`)
+### OldSlashingReportDiscarded(`SessionIndex`)
 - **interface**: `api.events.staking.OldSlashingReportDiscarded.is`
 - **summary**:    An old slashing report from a prior era was discarded because it could  not be processed. \[session_index\] 
  
-### PayoutStarted(`u32`, `AccountId32`)
-- **interface**: `api.events.staking.PayoutStarted.is`
-- **summary**:    The stakers' rewards are getting paid. \[era_index, validator_stash\] 
+### Reward(`AccountId`, `Balance`)
+- **interface**: `api.events.staking.Reward.is`
+- **summary**:    The staker has been rewarded by this amount. \[stash, amount\] 
  
-### Rewarded(`AccountId32`, `u128`)
-- **interface**: `api.events.staking.Rewarded.is`
-- **summary**:    The nominator has been rewarded by this amount. \[stash, amount\] 
- 
-### Slashed(`AccountId32`, `u128`)
-- **interface**: `api.events.staking.Slashed.is`
+### Slash(`AccountId`, `Balance`)
+- **interface**: `api.events.staking.Slash.is`
 - **summary**:    One validator (and its nominators) has been slashed by the given amount.  \[validator, amount\] 
  
-### StakersElected()
-- **interface**: `api.events.staking.StakersElected.is`
+### StakingElection()
+- **interface**: `api.events.staking.StakingElection.is`
 - **summary**:    A new set of stakers was elected. 
  
 ### StakingElectionFailed()
 - **interface**: `api.events.staking.StakingElectionFailed.is`
 - **summary**:    The election failed. No new era is planned. 
  
-### Unbonded(`AccountId32`, `u128`)
+### Unbonded(`AccountId`, `Balance`)
 - **interface**: `api.events.staking.Unbonded.is`
 - **summary**:    An account has unbonded this amount. \[stash, amount\] 
  
-### ValidatorPrefsSet(`AccountId32`, `PalletStakingValidatorPrefs`)
-- **interface**: `api.events.staking.ValidatorPrefsSet.is`
-- **summary**:    A validator has set their preferences. 
- 
-### Withdrawn(`AccountId32`, `u128`)
+### Withdrawn(`AccountId`, `Balance`)
 - **interface**: `api.events.staking.Withdrawn.is`
 - **summary**:    An account has called `withdraw_unbonded` and removed unbonding chunks worth `Balance`  from the unlocking queue. \[stash, amount\] 
 
 ___
 
 
-## stateTrieMigration
- 
-### AutoMigrationFinished()
-- **interface**: `api.events.stateTrieMigration.AutoMigrationFinished.is`
-- **summary**:    The auto migration task finished. 
- 
-### Halted()
-- **interface**: `api.events.stateTrieMigration.Halted.is`
-- **summary**:    Migration got halted due to an error or miss-configuration. 
- 
-### Migrated(`u32`, `u32`, `PalletStateTrieMigrationMigrationCompute`)
-- **interface**: `api.events.stateTrieMigration.Migrated.is`
-- **summary**:    Given number of `(top, child)` keys were migrated respectively, with the given  `compute`. 
- 
-### Slashed(`AccountId32`, `u128`)
-- **interface**: `api.events.stateTrieMigration.Slashed.is`
-- **summary**:    Some account got slashed by the given amount. 
-
-___
-
-
 ## sudo
  
-### KeyChanged(`Option<AccountId32>`)
+### KeyChanged(`AccountId`)
 - **interface**: `api.events.sudo.KeyChanged.is`
-- **summary**:    The \[sudoer\] just switched identity; the old key is supplied if one existed. 
+- **summary**:    The \[sudoer\] just switched identity; the old key is supplied. 
  
-### Sudid(`Result<Null, SpRuntimeDispatchError>`)
+### Sudid(`DispatchResult`)
 - **interface**: `api.events.sudo.Sudid.is`
 - **summary**:    A sudo just took place. \[result\] 
  
-### SudoAsDone(`Result<Null, SpRuntimeDispatchError>`)
+### SudoAsDone(`DispatchResult`)
 - **interface**: `api.events.sudo.SudoAsDone.is`
 - **summary**:    A sudo just took place. \[result\] 
 
@@ -1243,276 +808,129 @@ ___
 - **interface**: `api.events.system.CodeUpdated.is`
 - **summary**:    `:code` was updated. 
  
-### ExtrinsicFailed(`SpRuntimeDispatchError`, `FrameSupportWeightsDispatchInfo`)
+### ExtrinsicFailed(`DispatchError`, `DispatchInfo`)
 - **interface**: `api.events.system.ExtrinsicFailed.is`
-- **summary**:    An extrinsic failed. 
+- **summary**:    An extrinsic failed. \[error, info\] 
  
-### ExtrinsicSuccess(`FrameSupportWeightsDispatchInfo`)
+### ExtrinsicSuccess(`DispatchInfo`)
 - **interface**: `api.events.system.ExtrinsicSuccess.is`
-- **summary**:    An extrinsic completed successfully. 
+- **summary**:    An extrinsic completed successfully. \[info\] 
  
-### KilledAccount(`AccountId32`)
+### KilledAccount(`AccountId`)
 - **interface**: `api.events.system.KilledAccount.is`
-- **summary**:    An account was reaped. 
+- **summary**:    An \[account\] was reaped. 
  
-### NewAccount(`AccountId32`)
+### NewAccount(`AccountId`)
 - **interface**: `api.events.system.NewAccount.is`
-- **summary**:    A new account was created. 
+- **summary**:    A new \[account\] was created. 
  
-### Remarked(`AccountId32`, `H256`)
+### Remarked(`AccountId`, `Hash`)
 - **interface**: `api.events.system.Remarked.is`
-- **summary**:    On on-chain remark happened. 
+- **summary**:    On on-chain remark happened. \[origin, remark_hash\] 
 
 ___
 
 
 ## technicalCommittee
  
-### Approved(`H256`)
+### Approved(`Hash`)
 - **interface**: `api.events.technicalCommittee.Approved.is`
-- **summary**:    A motion was approved by the required threshold. 
+- **summary**:    A motion was approved by the required threshold.  \[proposal_hash\] 
  
-### Closed(`H256`, `u32`, `u32`)
+### Closed(`Hash`, `MemberCount`, `MemberCount`)
 - **interface**: `api.events.technicalCommittee.Closed.is`
-- **summary**:    A proposal was closed because its threshold was reached or after its duration was up. 
+- **summary**:    A proposal was closed because its threshold was reached or after its duration was up.  \[proposal_hash, yes, no\] 
  
-### Disapproved(`H256`)
+### Disapproved(`Hash`)
 - **interface**: `api.events.technicalCommittee.Disapproved.is`
-- **summary**:    A motion was not approved by the required threshold. 
+- **summary**:    A motion was not approved by the required threshold.  \[proposal_hash\] 
  
-### Executed(`H256`, `Result<Null, SpRuntimeDispatchError>`)
+### Executed(`Hash`, `DispatchResult`)
 - **interface**: `api.events.technicalCommittee.Executed.is`
-- **summary**:    A motion was executed; result will be `Ok` if it returned without error. 
+- **summary**:    A motion was executed; result will be `Ok` if it returned without error.  \[proposal_hash, result\] 
  
-### MemberExecuted(`H256`, `Result<Null, SpRuntimeDispatchError>`)
+### MemberExecuted(`Hash`, `DispatchResult`)
 - **interface**: `api.events.technicalCommittee.MemberExecuted.is`
-- **summary**:    A single member did some action; result will be `Ok` if it returned without error. 
+- **summary**:    A single member did some action; result will be `Ok` if it returned without error.  \[proposal_hash, result\] 
  
-### Proposed(`AccountId32`, `u32`, `H256`, `u32`)
+### Proposed(`AccountId`, `ProposalIndex`, `Hash`, `MemberCount`)
 - **interface**: `api.events.technicalCommittee.Proposed.is`
-- **summary**:    A motion (given hash) has been proposed (by given account) with a threshold (given  `MemberCount`). 
+- **summary**:    A motion (given hash) has been proposed (by given account) with a threshold (given  `MemberCount`).  \[account, proposal_index, proposal_hash, threshold\] 
  
-### Voted(`AccountId32`, `H256`, `bool`, `u32`, `u32`)
+### Voted(`AccountId`, `Hash`, `bool`, `MemberCount`, `MemberCount`)
 - **interface**: `api.events.technicalCommittee.Voted.is`
-- **summary**:    A motion (given hash) has been voted on by given account, leaving  a tally (yes votes and no votes given respectively as `MemberCount`). 
-
-___
-
-
-## technicalMembership
- 
-### Dummy()
-- **interface**: `api.events.technicalMembership.Dummy.is`
-- **summary**:    Phantom member, never used. 
- 
-### KeyChanged()
-- **interface**: `api.events.technicalMembership.KeyChanged.is`
-- **summary**:    One of the members' keys changed. 
- 
-### MemberAdded()
-- **interface**: `api.events.technicalMembership.MemberAdded.is`
-- **summary**:    The given member was added; see the transaction for who. 
- 
-### MemberRemoved()
-- **interface**: `api.events.technicalMembership.MemberRemoved.is`
-- **summary**:    The given member was removed; see the transaction for who. 
- 
-### MembersReset()
-- **interface**: `api.events.technicalMembership.MembersReset.is`
-- **summary**:    The membership was reset; see the transaction for who the new set is. 
- 
-### MembersSwapped()
-- **interface**: `api.events.technicalMembership.MembersSwapped.is`
-- **summary**:    Two members were swapped; see the transaction for who. 
+- **summary**:    A motion (given hash) has been voted on by given account, leaving  a tally (yes votes and no votes given respectively as `MemberCount`).  \[account, proposal_hash, voted, yes, no\] 
 
 ___
 
 
 ## tips
  
-### NewTip(`H256`)
+### NewTip(`Hash`)
 - **interface**: `api.events.tips.NewTip.is`
-- **summary**:    A new tip suggestion has been opened. 
+- **summary**:    A new tip suggestion has been opened. \[tip_hash\] 
  
-### TipClosed(`H256`, `AccountId32`, `u128`)
+### TipClosed(`Hash`, `AccountId`, `Balance`)
 - **interface**: `api.events.tips.TipClosed.is`
-- **summary**:    A tip suggestion has been closed. 
+- **summary**:    A tip suggestion has been closed. \[tip_hash, who, payout\] 
  
-### TipClosing(`H256`)
+### TipClosing(`Hash`)
 - **interface**: `api.events.tips.TipClosing.is`
-- **summary**:    A tip suggestion has reached threshold and is closing. 
+- **summary**:    A tip suggestion has reached threshold and is closing. \[tip_hash\] 
  
-### TipRetracted(`H256`)
+### TipRetracted(`Hash`)
 - **interface**: `api.events.tips.TipRetracted.is`
-- **summary**:    A tip suggestion has been retracted. 
+- **summary**:    A tip suggestion has been retracted. \[tip_hash\] 
  
-### TipSlashed(`H256`, `AccountId32`, `u128`)
+### TipSlashed(`Hash`, `AccountId`, `Balance`)
 - **interface**: `api.events.tips.TipSlashed.is`
-- **summary**:    A tip suggestion has been slashed. 
+- **summary**:    A tip suggestion has been slashed. \[tip_hash, finder, deposit\] 
 
 ___
 
 
-## transactionPayment
+## tokens
  
-### TransactionFeePaid(`AccountId32`, `u128`, `u128`)
-- **interface**: `api.events.transactionPayment.TransactionFeePaid.is`
-- **summary**:    A transaction fee `actual_fee`, of which `tip` was added to the minimum inclusion fee,  has been paid by `who`. 
-
-___
-
-
-## transactionStorage
+### DustLost(`AccountId`, `CurrencyId`, `Balance`)
+- **interface**: `api.events.tokens.DustLost.is`
+- **summary**:    An account was removed whose balance was non-zero but below  ExistentialDeposit, resulting in an outright loss. \[account,  currency_id, amount\] 
  
-### ProofChecked()
-- **interface**: `api.events.transactionStorage.ProofChecked.is`
-- **summary**:    Storage proof was successfully checked. 
- 
-### Renewed(`u32`)
-- **interface**: `api.events.transactionStorage.Renewed.is`
-- **summary**:    Renewed data under specified index. 
- 
-### Stored(`u32`)
-- **interface**: `api.events.transactionStorage.Stored.is`
-- **summary**:    Stored data under specified index. 
+### Transferred(`CurrencyId`, `AccountId`, `AccountId`, `Balance`)
+- **interface**: `api.events.tokens.Transferred.is`
+- **summary**:    Token transfer success. \[currency_id, from, to, amount\] 
 
 ___
 
 
 ## treasury
  
-### Awarded(`u32`, `u128`, `AccountId32`)
+### Awarded(`ProposalIndex`, `Balance`, `AccountId`)
 - **interface**: `api.events.treasury.Awarded.is`
-- **summary**:    Some funds have been allocated. 
+- **summary**:    Some funds have been allocated. \[proposal_index, award, beneficiary\] 
  
-### Burnt(`u128`)
+### Burnt(`Balance`)
 - **interface**: `api.events.treasury.Burnt.is`
-- **summary**:    Some of our funds have been burnt. 
+- **summary**:    Some of our funds have been burnt. \[burn\] 
  
-### Deposit(`u128`)
+### Deposit(`Balance`)
 - **interface**: `api.events.treasury.Deposit.is`
-- **summary**:    Some funds have been deposited. 
+- **summary**:    Some funds have been deposited. \[deposit\] 
  
-### Proposed(`u32`)
+### Proposed(`ProposalIndex`)
 - **interface**: `api.events.treasury.Proposed.is`
-- **summary**:    New proposal. 
+- **summary**:    New proposal. \[proposal_index\] 
  
-### Rejected(`u32`, `u128`)
+### Rejected(`ProposalIndex`, `Balance`)
 - **interface**: `api.events.treasury.Rejected.is`
-- **summary**:    A proposal was rejected; funds were slashed. 
+- **summary**:    A proposal was rejected; funds were slashed. \[proposal_index, slashed\] 
  
-### Rollover(`u128`)
+### Rollover(`Balance`)
 - **interface**: `api.events.treasury.Rollover.is`
-- **summary**:    Spending has finished; this is the amount that rolls over until next spend. 
+- **summary**:    Spending has finished; this is the amount that rolls over until next spend.  \[budget_remaining\] 
  
-### SpendApproved(`u32`, `u128`, `AccountId32`)
-- **interface**: `api.events.treasury.SpendApproved.is`
-- **summary**:    A new spend proposal has been approved. 
- 
-### Spending(`u128`)
+### Spending(`Balance`)
 - **interface**: `api.events.treasury.Spending.is`
-- **summary**:    We have ended a spend period and will now allocate funds. 
-
-___
-
-
-## uniques
- 
-### ApprovalCancelled(`u32`, `u32`, `AccountId32`, `AccountId32`)
-- **interface**: `api.events.uniques.ApprovalCancelled.is`
-- **summary**:    An approval for a `delegate` account to transfer the `item` of an item  `collection` was cancelled by its `owner`. 
- 
-### ApprovedTransfer(`u32`, `u32`, `AccountId32`, `AccountId32`)
-- **interface**: `api.events.uniques.ApprovedTransfer.is`
-- **summary**:    An `item` of a `collection` has been approved by the `owner` for transfer by  a `delegate`. 
- 
-### AttributeCleared(`u32`, `Option<u32>`, `Bytes`)
-- **interface**: `api.events.uniques.AttributeCleared.is`
-- **summary**:    Attribute metadata has been cleared for a `collection` or `item`. 
- 
-### AttributeSet(`u32`, `Option<u32>`, `Bytes`, `Bytes`)
-- **interface**: `api.events.uniques.AttributeSet.is`
-- **summary**:    New attribute metadata has been set for a `collection` or `item`. 
- 
-### Burned(`u32`, `u32`, `AccountId32`)
-- **interface**: `api.events.uniques.Burned.is`
-- **summary**:    An `item` was destroyed. 
- 
-### CollectionFrozen(`u32`)
-- **interface**: `api.events.uniques.CollectionFrozen.is`
-- **summary**:    Some `collection` was frozen. 
- 
-### CollectionMaxSupplySet(`u32`, `u32`)
-- **interface**: `api.events.uniques.CollectionMaxSupplySet.is`
-- **summary**:    Max supply has been set for a collection. 
- 
-### CollectionMetadataCleared(`u32`)
-- **interface**: `api.events.uniques.CollectionMetadataCleared.is`
-- **summary**:    Metadata has been cleared for a `collection`. 
- 
-### CollectionMetadataSet(`u32`, `Bytes`, `bool`)
-- **interface**: `api.events.uniques.CollectionMetadataSet.is`
-- **summary**:    New metadata has been set for a `collection`. 
- 
-### CollectionThawed(`u32`)
-- **interface**: `api.events.uniques.CollectionThawed.is`
-- **summary**:    Some `collection` was thawed. 
- 
-### Created(`u32`, `AccountId32`, `AccountId32`)
-- **interface**: `api.events.uniques.Created.is`
-- **summary**:    A `collection` was created. 
- 
-### Destroyed(`u32`)
-- **interface**: `api.events.uniques.Destroyed.is`
-- **summary**:    A `collection` was destroyed. 
- 
-### ForceCreated(`u32`, `AccountId32`)
-- **interface**: `api.events.uniques.ForceCreated.is`
-- **summary**:    A `collection` was force-created. 
- 
-### Frozen(`u32`, `u32`)
-- **interface**: `api.events.uniques.Frozen.is`
-- **summary**:    Some `item` was frozen. 
- 
-### Issued(`u32`, `u32`, `AccountId32`)
-- **interface**: `api.events.uniques.Issued.is`
-- **summary**:    An `item` was issued. 
- 
-### ItemStatusChanged(`u32`)
-- **interface**: `api.events.uniques.ItemStatusChanged.is`
-- **summary**:    A `collection` has had its attributes changed by the `Force` origin. 
- 
-### MetadataCleared(`u32`, `u32`)
-- **interface**: `api.events.uniques.MetadataCleared.is`
-- **summary**:    Metadata has been cleared for an item. 
- 
-### MetadataSet(`u32`, `u32`, `Bytes`, `bool`)
-- **interface**: `api.events.uniques.MetadataSet.is`
-- **summary**:    New metadata has been set for an item. 
- 
-### OwnerChanged(`u32`, `AccountId32`)
-- **interface**: `api.events.uniques.OwnerChanged.is`
-- **summary**:    The owner changed. 
- 
-### OwnershipAcceptanceChanged(`AccountId32`, `Option<u32>`)
-- **interface**: `api.events.uniques.OwnershipAcceptanceChanged.is`
-- **summary**:    Ownership acceptance has changed for an account. 
- 
-### Redeposited(`u32`, `Vec<u32>`)
-- **interface**: `api.events.uniques.Redeposited.is`
-- **summary**:    Metadata has been cleared for an item. 
- 
-### TeamChanged(`u32`, `AccountId32`, `AccountId32`, `AccountId32`)
-- **interface**: `api.events.uniques.TeamChanged.is`
-- **summary**:    The management team changed. 
- 
-### Thawed(`u32`, `u32`)
-- **interface**: `api.events.uniques.Thawed.is`
-- **summary**:    Some `item` was thawed. 
- 
-### Transferred(`u32`, `u32`, `AccountId32`, `AccountId32`)
-- **interface**: `api.events.uniques.Transferred.is`
-- **summary**:    An `item` was transferred. 
+- **summary**:    We have ended a spend period and will now allocate funds. \[budget_remaining\] 
 
 ___
 
@@ -1523,49 +941,6 @@ ___
 - **interface**: `api.events.utility.BatchCompleted.is`
 - **summary**:    Batch of dispatches completed fully with no error. 
  
-### BatchCompletedWithErrors()
-- **interface**: `api.events.utility.BatchCompletedWithErrors.is`
-- **summary**:    Batch of dispatches completed but has errors. 
- 
-### BatchInterrupted(`u32`, `SpRuntimeDispatchError`)
+### BatchInterrupted(`u32`, `DispatchError`)
 - **interface**: `api.events.utility.BatchInterrupted.is`
-- **summary**:    Batch of dispatches did not complete fully. Index of first failing dispatch given, as  well as the error. 
- 
-### DispatchedAs(`Result<Null, SpRuntimeDispatchError>`)
-- **interface**: `api.events.utility.DispatchedAs.is`
-- **summary**:    A call was dispatched. 
- 
-### ItemCompleted()
-- **interface**: `api.events.utility.ItemCompleted.is`
-- **summary**:    A single item within a Batch of dispatches has completed with no error. 
- 
-### ItemFailed(`SpRuntimeDispatchError`)
-- **interface**: `api.events.utility.ItemFailed.is`
-- **summary**:    A single item within a Batch of dispatches has completed with error. 
-
-___
-
-
-## vesting
- 
-### VestingCompleted(`AccountId32`)
-- **interface**: `api.events.vesting.VestingCompleted.is`
-- **summary**:    An \[account\] has become fully vested. 
- 
-### VestingUpdated(`AccountId32`, `u128`)
-- **interface**: `api.events.vesting.VestingUpdated.is`
-- **summary**:    The amount vested has been updated. This could indicate a change in funds available.  The balance given is the amount which is left unvested (and thus locked). 
-
-___
-
-
-## whitelist
- 
-### CallWhitelisted(`H256`)
-- **interface**: `api.events.whitelist.CallWhitelisted.is`
- 
-### WhitelistedCallDispatched(`H256`, `Result<FrameSupportWeightsPostDispatchInfo, SpRuntimeDispatchErrorWithPostInfo>`)
-- **interface**: `api.events.whitelist.WhitelistedCallDispatched.is`
- 
-### WhitelistedCallRemoved(`H256`)
-- **interface**: `api.events.whitelist.WhitelistedCallRemoved.is`
+- **summary**:    Batch of dispatches did not complete fully. Index of first failing dispatch given, as  well as the error. \[index, error\] 
