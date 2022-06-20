@@ -14,12 +14,12 @@ import * as testing from './src/endpoints/testing.ts';
 // import * as ep from 'https://unpkg.com/@polkadot/apps-config/endpoints';
 // import * as ep from './src/endpoints';
 import {
-prodChains,
-prodRelayKusama,
-prodRelayPolkadot,
-testChains,
-testRelayRococo,
-testRelayWestend,
+  prodChains,
+  prodRelayKusama,
+  prodRelayPolkadot,
+  testChains,
+  testRelayRococo,
+  testRelayWestend,
 } from "@polkadot/apps-config/endpoints";
 
 /*
@@ -37,10 +37,10 @@ testRelayWestend,
 
 // subsh run a.ts | grep -oE 'wss?://.*' | sort -u | jq -R | jq -s > ep.json
 console.log({
-prodChains,
-prodRelayKusama,
-prodRelayPolkadot,
-testChains,
-testRelayRococo,
-testRelayWestend,
-})
+  prodChains,
+  prodRelayKusama,
+  prodRelayPolkadot,
+  testChains,
+  testRelayRococo,
+  testRelayWestend,
+});
