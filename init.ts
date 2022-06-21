@@ -43,12 +43,13 @@ function progInfo() {
   /* print program info from package.json */
 
   const info = {
-    "⚙️ v8 version ": Deno.version.v8,
-    "🇹 TypeScript version ": Deno.version.typescript,
+    // "⚙️ v8 version ": Deno.version.v8,
+    // "🇹 TypeScript version ": Deno.version.typescript,
+    "🦕 Deno version ": '1.23.0',
     "📗 Subshell tutorial ": 'https://doc.subshell.xyz',
     "❔ Issues ": 'https://github.com/btwiuse/subshell/issues',
-    "⛓️ RPC Ppovider": PROVIDER,
-    "🪄 Custom types": JSON.stringify(TYPES) != '{}' ? 'Yes' : 'None',
+    // "⛓️ RPC Ppovider": PROVIDER,
+    // "🪄 Custom types": JSON.stringify(TYPES) != '{}' ? 'Yes' : 'None',
     "📖 Runtime api reference": 'https://substrate.rs',
   };
 
@@ -74,28 +75,30 @@ function info(msg: string = "") {
 }
 
 info("api initializing...");
-
-console.log()
+info(`RPC Ppovider: ${PROVIDER}`);
+const customTypes = JSON.stringify(TYPES) != '{}' ? 'Yes' : 'None';
+info(`Custom types: ${customTypes}`);
 
 const wsProvider = new WsProvider(
   PROVIDER,
 );
 const api = await ApiPromise.create({ provider: wsProvider, types: TYPES });
 
-console.log()
-
-info(`api has been injected to the global object. You can start exploring it in the repl. Here are some examples:`)
-info()
+info();
+info(`api has been injected to the global object.`);
+info(`You can start exploring it in the repl.`);
+info(`Here are some examples:`);
+info();
 info("> api.runtimeChain.toHuman()");
 info(api.runtimeChain.toHuman());
-info()
+info();
 info("> api.consts.system.ss58Prefix.toHuman()");
 info(api.consts.system.ss58Prefix.toHuman());
-info()
-info("> (await api.query.system.number()).toHumber()");
+info();
+info("> (await api.query.system.number()).toNumber()");
 info((await api.query.system.number()).toNumber());
-info()
+info();
 info("> api.runtimeMetadata.version");
 info(api.runtimeMetadata.version);
 
-console.log()
+console.log();
